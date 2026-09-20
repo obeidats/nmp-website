@@ -1,0 +1,43 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  text?: string;
+  /** 'dark' = on a dark background */
+  tone?: 'light' | 'dark';
+  /**
+   * start  – stacked, aligned to the reading start
+   * center – stacked, centred
+   * split  – title on one side, lead text on the other (desktop); stacks on small screens
+   */
+  layout?: 'start' | 'center' | 'split';
+  as?: 'h1' | 'h2' | 'h3';
+}
+
+const { kicker, title, text, tone = 'light', layout = 'start', as: Tag = 'h2' } = Astro.props;
+
+const dark = tone === 'dark';
+const centered = layout === 'center';
+const split = layout === 'split';
+---
+
+<div
+  data-reveal
+  class:list={[
+    centered && 'mx-auto max-w-3xl text-center',
+    split && 'lg:grid lg:grid-cols-[1.05fr_1fr] lg:items-end lg:gap-20',
+    !centered && !split && 'max-w-3xl',
+  ]}
+>
+  <div>
+    {
+      kicker && (
+        <p class:list={['eyebrow mb-4', dark ? 'text-gold-400' : 'text-gold-700', centered && 'justify-center']}>{kicker}</p>
+      )
+    }
+    <Tag class:list={['h-display text-3xl sm:text-4xl xl:text-[2.75rem]', dark ? 'text-white' : 'text-night-900']}>
+      {title}
+    </Tag>
+  </div>
+  {text && <p class:list={['prose-lead', split ? 'mt-4 lg:mt-0 lg:pb-1' : 'mt-5', dark && '!text-white/75']}>{text}</p>}
+</div>

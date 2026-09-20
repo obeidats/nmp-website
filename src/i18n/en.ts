@@ -1,0 +1,697 @@
+import type { Content } from './types';
+
+export const en: Content = {
+  meta: {
+    siteName: 'Nasaq Modern Projects Company',
+    shortName: 'NM Projects',
+    tagline: 'Project, Commercial & Infrastructure Solutions',
+    description:
+      'Nasaq Modern Projects Company (NM Projects) is an Oman-based company connecting opportunities, capabilities and partnerships across infrastructure, construction and commercial projects in Oman and the Gulf.',
+    titleSuffix: 'NM Projects | Nasaq Modern Projects',
+  },
+
+  nav: { home: 'Home', services: 'Services', projects: 'Projects', about: 'About Us', contact: 'Contact' },
+
+  ui: {
+    exploreProjects: 'Explore our projects',
+    viewProjectDetails: 'View project details',
+    comingSoon: 'Coming soon',
+    lightbox: { open: 'Enlarge photo', close: 'Close', prev: 'Previous photo', next: 'Next photo' },
+    skipToContent: 'Skip to main content',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    mainNav: 'Main navigation',
+    switchLanguageLabel: 'العربية',
+    switchLanguageAria: 'التبديل إلى اللغة العربية',
+    exploreServices: 'Explore our services',
+    contactUs: 'Contact us',
+    learnMore: 'Learn more',
+    aboutUs: 'About us',
+    quickLinks: 'Quick links',
+    rights: 'All rights reserved.',
+    crLabel: 'CR',
+    establishedLabel: 'Since',
+    phoneLabel: 'Phone',
+    emailLabel: 'Email',
+    locationLabel: 'Location',
+    whatsappLabel: 'WhatsApp',
+    chatOnWhatsapp: 'Chat on WhatsApp',
+    whatsappFloating: 'Chat with us on WhatsApp',
+    address: 'Al Khoud, Muscat – Seeb, Sultanate of Oman',
+    poBoxLine: 'PO Box 767, PC 123',
+    footerBlurb:
+      'An Oman-based project company moving opportunities forward through coordinated project, commercial and operational support.',
+  },
+
+  home: {
+    seoTitle: 'Building What’s Next',
+    hero: {
+      eyebrow: 'Muscat · Sultanate of Oman',
+      titleLead: 'Building',
+      titleAccent: 'What’s Next',
+      text: 'NM Projects connects opportunities, capabilities, and partnerships to support the next generation of projects across Oman and the Gulf.',
+      subtitle: 'Project, Commercial & Infrastructure Solutions',
+      tagline: 'Modern Projects. Meaningful Momentum.',
+    },
+    stats: {
+      established: 'Established',
+      projects: 'Projects',
+      ongoing: 'Ongoing projects',
+      value: 'Portfolio value (OMR)',
+      millionSuffix: 'M',
+    },
+    intro: {
+      kicker: 'A Partner for Progress',
+      title: 'Oman rooted. Regionally connected.',
+      text: 'Nasaq Modern Projects Company is an Oman-based project company focused on moving opportunities forward through coordinated project, commercial, and operational support.',
+      highlight:
+        'We work across disciplines to create strong foundations for enduring projects and commercial relationships.',
+    },
+    services: {
+      items: [
+        {
+          icon: 'clipboard',
+          title: 'Project Services',
+          text: 'Structured planning, procurement coordination, execution support, and clear accountability through every project stage.',
+        },
+        {
+          icon: 'handshake',
+          title: 'Commercial Services',
+          text: 'Practical collaboration that connects opportunities with the right people, resources, and regional relationships.',
+        },
+        {
+          icon: 'headset',
+          title: 'Operational Services',
+          text: 'Responsive systems and hands-on coordination that keep teams aligned, decisions moving, and work on track.',
+        },
+      ],
+    },
+    capabilities: {
+      kicker: 'Capabilities',
+      title: 'Infrastructure & Construction Solutions',
+      text: 'NM Projects brings together access to integrated infrastructure and construction capabilities covering roads, utilities, networks, electrical systems, and building construction.',
+      items: [
+        { icon: 'road', title: 'Roads', text: 'Highways, municipal roads, paving and protection works.' },
+        { icon: 'droplet', title: 'Water', text: 'Potable water, stormwater and drainage networks.' },
+        { icon: 'network', title: 'Networks', text: 'Fiber optic routes, ducting and reinstatement.' },
+        { icon: 'bolt', title: 'Electrical', text: 'Cabling, distribution and street lighting.' },
+        { icon: 'building', title: 'Buildings', text: 'Residential, commercial and educational buildings.' },
+      ],
+    },
+    projectsBand: {
+      kicker: 'Our projects',
+      title: 'From roads to buildings — see how we deliver',
+      text: 'Explore the five disciplines behind our portfolio, with the scope, method and quality standards that guide each one.',
+    },
+    approach: {
+      title: 'Clear Thinking. Confident Delivery.',
+      steps: [
+        {
+          icon: 'search',
+          title: 'Understand the Opportunity',
+          text: 'We begin with the context, ambition, and outcome that matters.',
+        },
+        {
+          icon: 'route',
+          title: 'Shape the Right Path',
+          text: 'We align scope, partners, and practical next steps.',
+        },
+        {
+          icon: 'target',
+          title: 'Move with Purpose',
+          text: 'We coordinate the work, communicate clearly, and stay accountable.',
+        },
+      ],
+    },
+    region: {
+      kicker: 'Oman & GCC',
+      title: 'Connecting Opportunity Across the Gulf',
+      text: 'We help businesses explore the Omani market, identify regional opportunities, and develop relationships that support sustainable growth.',
+      tagline: 'Connecting markets. Creating opportunities.',
+      items: [
+        { icon: 'chart', title: 'Market', text: 'Understanding the market landscape and local context.' },
+        { icon: 'lightbulb', title: 'Opportunity', text: 'Identifying the right opportunities for growth and collaboration.' },
+        { icon: 'handshake', title: 'Connection', text: 'Building trusted relationships with the right partners.' },
+        { icon: 'trending', title: 'Growth', text: 'Creating sustainable value and long-term success.' },
+      ],
+    },
+    cta: {
+      title: 'Let’s build what’s next, together.',
+      text: 'Tell us about your project or partnership opportunity and our team will get back to you.',
+    },
+  },
+
+  services: {
+    seoTitle: 'Services',
+    header: {
+      title: 'Our Services',
+      text: 'Integrated project, commercial, and operational services — from early opportunity through delivery.',
+    },
+    pillars: [
+      {
+        icon: 'clipboard',
+        title: 'Project Delivery & Coordination',
+        text: 'Structured planning, procurement coordination, execution support, and clear accountability through every project stage.',
+        points: ['Plan', 'Coordinate', 'Execute', 'Deliver'],
+      },
+      {
+        icon: 'handshake',
+        title: 'Commercial Partnerships',
+        text: 'Practical collaboration that connects opportunities with the right people, resources, and regional relationships.',
+        points: ['Opportunities', 'Partners', 'Resources'],
+      },
+      {
+        icon: 'headset',
+        title: 'Operational Support',
+        text: 'Responsive systems and hands-on coordination that keep teams aligned, decisions moving, and work on track.',
+        points: ['Team alignment', 'Decision support', 'Project follow-up'],
+      },
+    ],
+    deliveryModel: {
+      kicker: 'How we deliver',
+      title: 'Two ways we deliver',
+      text: 'Depending on the nature of the project, NM Projects either carries out the work directly or coordinates and connects the right capabilities around it.',
+      direct: {
+        icon: 'hardhat',
+        title: 'Direct delivery',
+        text: 'We implement the project ourselves, with clear accountability across every stage.',
+      },
+      coordinated: {
+        icon: 'link',
+        title: 'Coordinated delivery',
+        text: 'We connect and coordinate trusted partners and resources to deliver the full scope.',
+      },
+    },
+    infrastructure: {
+      kicker: 'Capabilities',
+      title: 'Infrastructure & Construction Solutions',
+      text: 'Integrated capabilities covering roads, utilities, networks, electrical systems, and building construction.',
+      categories: [
+        {
+          icon: 'road',
+          tab: 'Roads',
+          title: 'Roads & Infrastructure',
+          text: 'Infrastructure capabilities covering the design, construction, and maintenance of transportation networks and road-related works.',
+          items: [
+            'Highways & Municipal Roads',
+            'Asphalt Paving',
+            'Interlocking & Pavement Works',
+            'Earthworks',
+            'Road Rehabilitation',
+            'Retaining & Protection Works',
+            'Culverts & Causeways',
+            'Slope & Riverbank Stabilization',
+          ],
+        },
+        {
+          icon: 'droplet',
+          tab: 'Water',
+          title: 'Water Supply & Drainage',
+          text: 'Integrated water infrastructure solutions covering potable water networks and stormwater systems from supply through installation, testing, and commissioning.',
+          items: [
+            'Potable Water Networks',
+            'Pipelines',
+            'Pumping Stations',
+            'Reservoirs',
+            'Stormwater Systems',
+            'Drainage Networks',
+            'Testing & Commissioning',
+          ],
+        },
+        {
+          icon: 'network',
+          tab: 'Networks',
+          title: 'Network Infrastructure',
+          text: 'End-to-end network infrastructure capabilities supporting fiber optic and ducting works across Oman.',
+          items: [
+            'Fiber Optic Networks',
+            'Ducting Works',
+            'Duct Protection',
+            'Trenching & Reinstatement',
+            'Relocation',
+            'Installation & Commissioning',
+          ],
+        },
+        {
+          icon: 'bolt',
+          tab: 'Electrical',
+          title: 'Electrical Solutions',
+          text: 'Integrated electrical solutions supporting road and infrastructure projects with a focus on reliable, safe, and sustainable power systems.',
+          items: [
+            'Street & Road Lighting',
+            'Medium & Low Voltage Cabling',
+            'Feeder Pillars & Distribution',
+            'Transformers & Substation Works',
+            'Overhead Line Works',
+            'Testing & Commissioning',
+          ],
+        },
+        {
+          icon: 'building',
+          tab: 'Buildings',
+          title: 'Building Construction',
+          text: 'End-to-end construction capabilities across residential, commercial, and educational sectors, supported by engineering excellence and project management.',
+          items: ['Residential', 'Commercial', 'Educational', 'Structural Works', 'Project Management'],
+        },
+      ],
+    },
+    strengths: {
+      kicker: 'Why NM Projects',
+      title: 'What sets our delivery apart',
+      items: [
+        {
+          icon: 'layers',
+          title: 'Integrated services',
+          text: 'Project, commercial and operational support combined with several construction disciplines.',
+        },
+        {
+          icon: 'award',
+          title: 'Quality-led execution',
+          text: 'A commitment to recognised quality standards and precise execution on site.',
+        },
+        {
+          icon: 'clock',
+          title: 'On-time focus',
+          text: 'A client-centred approach that keeps timelines, communication and accountability clear.',
+        },
+        {
+          icon: 'hardhat',
+          title: 'Skilled people, modern equipment',
+          text: 'Trained personnel and modern equipment behind every site, whether we deliver directly or through trusted partners.',
+        },
+      ],
+    },
+    lifecycle: {
+      kicker: 'Our process',
+      title: 'From Opportunity to Delivery',
+      steps: [
+        'Opportunity',
+        'Business Development',
+        'Commercial Coordination',
+        'Project Planning',
+        'Procurement',
+        'Execution',
+        'Delivery',
+      ],
+    },
+    sectors: {
+      kicker: 'Sectors',
+      title: 'Sectors We Support',
+      items: [
+        { icon: 'building', title: 'Infrastructure' },
+        { icon: 'road', title: 'Transportation' },
+        { icon: 'droplet', title: 'Water & Utilities' },
+        { icon: 'network', title: 'Telecommunications' },
+        { icon: 'bolt', title: 'Electrical Solutions' },
+        { icon: 'crane', title: 'Construction' },
+        { icon: 'layers', title: 'Commercial Development' },
+        { icon: 'globe', title: 'Regional Partnerships' },
+      ],
+    },
+    regional: {
+      kicker: 'Oman & GCC',
+      title: 'Regional Business Development',
+      text: 'NM Projects supports business development across Oman and the Gulf by connecting market opportunities with practical commercial pathways and trusted relationships.',
+      items: [
+        { icon: 'globe', title: 'Market Opportunities', text: 'Identifying and linking high-potential opportunities.' },
+        { icon: 'route', title: 'Commercial Pathways', text: 'Structuring practical routes to market and growth.' },
+        { icon: 'handshake', title: 'Trusted Relationships', text: 'Building partnerships with reliable local connections.' },
+        { icon: 'trending', title: 'Sustainable Growth', text: 'Supporting long-term value and business success.' },
+      ],
+    },
+  },
+
+  projects: {
+    seoTitle: 'Projects',
+    header: {
+      title: 'Projects',
+      text: 'Five disciplines, one delivery standard — infrastructure and construction works across Oman.',
+    },
+    portfolio: {
+      kicker: 'Track record',
+      title: 'Our portfolio in numbers',
+      text: 'Projects carried out by NMP across infrastructure, industry and energy sectors, by sector and status.',
+      stats: {
+        projects: 'Total projects',
+        completed: 'Completed',
+        ongoing: 'Ongoing',
+        value: 'Portfolio value (OMR)',
+      },
+      filters: { all: 'All projects', completed: 'Completed', ongoing: 'Ongoing' },
+      valueLabel: 'Sector value (OMR)',
+      note: 'Bars show the number of projects; the value shown is the total for the whole sector.',
+    },
+    explorer: {
+      kicker: 'Disciplines',
+      title: 'What we build',
+      text: 'Choose a discipline to see its scope, how we deliver it and how we assure quality.',
+      tabsLabel: 'Project disciplines',
+      galleryTitle: 'From the field',
+      galleryNote: 'Photographs illustrate typical works in each discipline.',
+      scopeTitle: 'Scope of works',
+      methodTitle: 'How we deliver',
+      qualityTitle: 'Quality & safety',
+      discuss: 'Discuss this scope',
+      disciplines: [
+        {
+          summary: 'The backbone of connectivity: highways, municipal roads and the supporting works that keep them safe and lasting.',
+          detail:
+            'From site clearance and earthworks to the final wearing course, we coordinate every layer of a road project — including drainage crossings, protection works, and the pavements and kerbs that finish it.',
+          method: [
+            { title: 'Survey & setting out', text: 'Levels, alignments and existing services are confirmed before the first cut.' },
+            { title: 'Earthworks & base layers', text: 'Excavation, embankment and sub-base are placed and compacted layer by layer.' },
+            { title: 'Paving & structures', text: 'Asphalt, interlocking, culverts and protection works follow the approved design.' },
+            { title: 'Testing & handover', text: 'Levels, compaction and finishes are checked before the road is handed over.' },
+          ],
+          quality: [
+            'Materials and workmanship tested against the project specification',
+            'Traffic management and safe working zones on live roads',
+            'Careful reinstatement of adjoining areas',
+          ],
+          gallery: [
+            'Asphalt paving and rolling',
+            'Subgrade compaction',
+            'Interlocking and kerbstone paving',
+            'Culvert with gabion protection',
+            'Riprap and slope protection',
+            'Reinforcement for a road structure',
+          ],
+        },
+        {
+          summary: 'Potable water and stormwater networks, from the first trench to commissioning.',
+          detail:
+            'We install and test pipelines and drainage networks to the requirements of the client and the relevant authorities, and support the pumping, storage and testing works that go with them.',
+          method: [
+            { title: 'Trench & bedding', text: 'Excavation, side support where required, and a stable bed for the pipe.' },
+            { title: 'Lay & joint', text: 'Pipes are laid to line and level and jointed by the specified method.' },
+            { title: 'Test', text: 'Pressure and leakage tests prove each section before the network is accepted.' },
+            { title: 'Reinstate & commission', text: 'Surfaces are reinstated, then the network is flushed, disinfected and commissioned.' },
+          ],
+          quality: [
+            'Testing and commissioning documented for every section',
+            'Works carried out to client and authority standards and specifications',
+            'Minimal disruption to surrounding roads and properties',
+          ],
+          gallery: [
+            'Pipeline laid in a prepared trench',
+            'Trench with warning tape',
+            'Pipe jointing in the trench',
+            'Pipe fusion works above ground',
+            'Trenching beside a live road',
+            'Excavation and backfill plant',
+          ],
+        },
+        {
+          summary: 'The ducts and fiber routes that carry Oman’s telecommunications.',
+          detail:
+            'We build the passive infrastructure for fiber optic networks: trenching, ducting, chambers, protection and reinstatement, followed by installation and commissioning.',
+          method: [
+            { title: 'Route survey & permits', text: 'Routes are checked against existing services and approvals.' },
+            { title: 'Trenching & duct laying', text: 'Ducts are laid to depth, spaced and supported.' },
+            { title: 'Protection & marking', text: 'Concrete encasement, warning tape and chambers protect the route.' },
+            { title: 'Reinstate & commission', text: 'Surfaces are reinstated and the route is tested and handed over.' },
+          ],
+          quality: [
+            'Warning tape and chambers on every route',
+            'Careful reinstatement of roads, pavements and landscaping',
+            'As-built records handed over with the route',
+          ],
+          gallery: [
+            'Multi-way ducts laid in the trench',
+            'Duct bank formwork in a trench',
+            'Night-time duct installation',
+            'Warning tape above the duct route',
+          ],
+        },
+        {
+          summary: 'Reliable, safe and sustainable power for roads and infrastructure.',
+          detail:
+            'Integrated electrical works supporting road and infrastructure projects — from cable routes and distribution equipment to street lighting, tested and energized safely.',
+          method: [
+            { title: 'Design coordination', text: 'Loads, routes and protection are coordinated with the civil works.' },
+            { title: 'Cable & duct installation', text: 'Cables are laid in prepared ducts, then jointed and terminated to specification.' },
+            { title: 'Equipment installation', text: 'Pillars, transformers, poles and luminaires are installed and connected.' },
+            { title: 'Test & energize', text: 'Insulation, earthing and functional tests come before energization.' },
+          ],
+          quality: [
+            'Safe isolation and permit-to-work procedures',
+            'Tested and certified before energization',
+            'Efficient, low-maintenance lighting where the design allows',
+          ],
+          gallery: [
+            'Feeder pillar installation',
+            'Cable jointing in the trench',
+            'Transformer with cable connections',
+            'Overhead line work from an aerial platform',
+            'Lighting pole erection by crane',
+            'Completed street lighting at night',
+          ],
+        },
+        {
+          summary: 'Residential, commercial and educational buildings, built with engineering discipline.',
+          detail:
+            'From foundations and reinforced concrete structure to blockwork and finishes, backed by project management that keeps programme, quality and safety in view.',
+          method: [
+            { title: 'Substructure', text: 'Excavation, foundations and ground slabs.' },
+            { title: 'Structure', text: 'Reinforcement, formwork and concrete to the approved drawings.' },
+            { title: 'Envelope & finishes', text: 'Blockwork, building services and finishes.' },
+            { title: 'Inspection & handover', text: 'Final inspections, snagging and handover.' },
+          ],
+          quality: [
+            'Reinforcement and formwork inspected before every pour',
+            'Concrete tested and cured to specification',
+            'Site safety managed every day',
+          ],
+          gallery: [
+            'Reinforcement and concrete placement',
+            'Slab reinforcement ready for pouring',
+            'Blockwork under construction',
+            'Completed small structure with finishes',
+            'Concrete pump at a structure site',
+          ],
+        },
+      ],
+    },
+    framework: {
+      kicker: 'How we run a project',
+      title: 'From plan to handover, with clear accountability',
+      text: 'Every project follows the same four stages, whether we deliver directly or coordinate trusted partners.',
+      stages: [
+        {
+          icon: 'clipboard',
+          title: 'Plan',
+          text: 'Scope, programme and resources are agreed before work starts.',
+          points: [
+            'Scope, programme and budget alignment',
+            'Site surveys, permits and utility checks',
+            'Risk, safety and quality plans',
+          ],
+        },
+        {
+          icon: 'users',
+          title: 'Coordinate',
+          text: 'People, suppliers and authorities are brought together around one plan.',
+          points: [
+            'Procurement and supplier coordination',
+            'Interface management between disciplines',
+            'Regular progress and decision meetings',
+          ],
+        },
+        {
+          icon: 'crane',
+          title: 'Execute',
+          text: 'Work is carried out safely, inspected as it goes and tracked against the programme.',
+          points: [
+            'Supervised works with daily safety briefings',
+            'Inspection and testing at each stage',
+            'Progress reporting and change control',
+          ],
+        },
+        {
+          icon: 'target',
+          title: 'Deliver',
+          text: 'The project is tested, documented and handed over to the client.',
+          points: [
+            'Final testing and commissioning',
+            'As-built records and close-out documents',
+            'Handover and follow-up on defects',
+          ],
+        },
+      ],
+    },
+    assurance: {
+      kicker: 'Our commitment',
+      title: 'Quality, safety and compliance',
+      text: 'Every discipline is delivered under the same standards: safe people, tested work and a documented handover.',
+      items: [
+        { icon: 'shield', title: 'Safety first', text: 'Toolbox talks, protective equipment and safe systems of work on every site.' },
+        { icon: 'scale', title: 'Regulatory compliance', text: 'Local and international regulations, and client specifications.' },
+        { icon: 'award', title: 'Tested workmanship', text: 'Inspections and tests are recorded before work is accepted.' },
+        { icon: 'leaf', title: 'Responsible practice', text: 'Waste, dust and reinstatement managed with care for communities and the environment.' },
+      ],
+      link: 'Read about our health & safety commitment',
+    },
+  },
+
+  about: {
+    seoTitle: 'About Us',
+    header: {
+      title: 'About Us',
+      text: 'An Oman-based project company moving opportunities forward through coordinated project, commercial, and operational support.',
+    },
+    anchors: {
+      overview: 'Overview',
+      vision: 'Vision & mission',
+      values: 'Values',
+      team: 'Our team',
+      portfolio: 'Portfolio',
+      safety: 'Health & safety',
+    },
+    team: {
+      kicker: 'People',
+      title: 'Our Team',
+      text: 'The people behind NM Projects.',
+      badge: 'Coming soon',
+      note: 'Team profiles will be published here soon.',
+    },
+    overview: {
+      kicker: 'Who we are',
+      title: 'Company at a Glance',
+      text: 'Nasaq Modern Projects Company is an Oman-based project company focused on moving opportunities forward through coordinated project, commercial, and operational support. We work across disciplines to create strong foundations for enduring projects and commercial relationships.',
+      facts: {
+        fullName: 'Full name',
+        shortName: 'Short name',
+        registration: 'Commercial registration (CR)',
+        established: 'Established',
+        location: 'Location',
+        poBox: 'PO Box / Postal code',
+        locationValue: 'Al Khoud, Muscat – Seeb, Sultanate of Oman',
+      },
+    },
+    vision: {
+      kicker: 'Building what’s next',
+      title: 'Vision',
+      text: 'To become a trusted platform for projects, partnerships, and business opportunities connecting Oman with the wider Gulf region.',
+      badges: ['Oman rooted', 'Regionally connected'],
+    },
+    mission: {
+      kicker: 'Project & Commercial Solutions for Oman',
+      title: 'Mission',
+      text: 'Supporting businesses across Oman and the Gulf through integrated project coordination, commercial partnerships, and operational support.',
+      pillars: ['Projects', 'Commerce', 'Operations'],
+    },
+    values: {
+      kicker: 'What guides us',
+      title: 'Our Values',
+      text: 'Building relationships, delivering quality, and creating lasting value.',
+      items: [
+        { icon: 'shield', title: 'Integrity' },
+        { icon: 'users', title: 'Collaboration' },
+        { icon: 'star', title: 'Excellence' },
+        { icon: 'lightbulb', title: 'Innovation' },
+        { icon: 'leaf', title: 'Sustainability' },
+      ],
+    },
+    strength: {
+      title: 'Our Commercial Strength',
+      items: [
+        { icon: 'pin', title: 'Oman-based', text: 'Local presence and market understanding.' },
+        { icon: 'globe', title: 'Regionally connected', text: 'A Gulf-oriented commercial perspective.' },
+        { icon: 'layers', title: 'Integrated', text: 'Project, commercial, and operational support.' },
+        {
+          icon: 'cog',
+          title: 'Multidisciplinary',
+          text: 'Infrastructure, utilities, networks, electrical and construction capabilities.',
+        },
+        { icon: 'handshake', title: 'Partnership driven', text: 'Focused on long-term commercial relationships.' },
+      ],
+    },
+    portfolio: {
+      kicker: 'Track record',
+      title: 'Portfolio at a Glance',
+      text: 'Projects carried out by NMP across infrastructure, industry, and energy sectors.',
+      headers: {
+        sector: 'Sector',
+        projects: 'Projects',
+        completed: 'Completed',
+        ongoing: 'Ongoing',
+        value: 'Total value (OMR)',
+        total: 'Total',
+      },
+      sectors: {
+        civil: 'Civil & Infrastructure',
+        electrical: 'Electrical & Power Infrastructure',
+        telecom: 'Telecom & Network Infrastructure',
+        utilities: 'Utilities & Infrastructure',
+        water: 'Water & Utility Networks',
+      },
+      note: 'All projects are delivered in line with our commitment to quality, safety, and long-term value.',
+    },
+    ohs: {
+      kicker: 'Our commitment',
+      title: 'Occupational Health & Safety',
+      text: 'We are committed to implementing the highest standards of occupational health and safety, placing the well-being of our employees and the work environment as a top priority.',
+      points: [
+        'Continuous training on safety procedures.',
+        'Compliance with local and international regulations.',
+        'Risk prevention and minimizing workplace incidents.',
+        'Promoting safety culture among all employees.',
+      ],
+      closing:
+        'Our commitment to occupational health and safety reflects our responsibility towards our employees and society, ensuring the sustainability of our operations and the quality of our services.',
+      pillars: [
+        { icon: 'hardhat', title: 'Continuous Training', text: 'Skilled, proficient' },
+        { icon: 'scale', title: 'Regulatory Compliance', text: 'Safe, standardized operations' },
+        { icon: 'alert', title: 'Incident Prevention', text: 'Minimizing risks, safe practices' },
+        { icon: 'users', title: 'Safety Culture', text: 'Diverse team approach, responsibility' },
+      ],
+    },
+    partnerships: {
+      kicker: 'Relationships',
+      title: 'Regional Partnerships',
+      text: 'Building practical relationships that connect businesses with local context, regional opportunities, and trusted partners.',
+      items: [
+        { icon: 'pin', title: 'Local Insight', text: 'Understanding local context to make better, more informed decisions.' },
+        { icon: 'globe', title: 'Gulf Perspective', text: 'Connecting businesses to regional opportunities across the Gulf.' },
+        { icon: 'handshake', title: 'Long-term Trust', text: 'Building lasting relationships based on reliability, integrity, and results.' },
+      ],
+    },
+  },
+
+  contact: {
+    seoTitle: 'Contact Us',
+    header: {
+      title: 'Contact Us',
+      text: 'Tell us about your project or partnership opportunity. We’ll respond as soon as possible.',
+    },
+    detailsTitle: 'Get in touch',
+    whatsapp: {
+      title: 'Prefer WhatsApp?',
+      text: 'Chat with us directly on the same number.',
+      prefill: 'Hello NM Projects, I would like to inquire about ',
+    },
+    form: {
+      title: 'Send us a message',
+      name: 'Full name',
+      company: 'Company / organization',
+      email: 'Email',
+      phone: 'Phone',
+      topic: 'I’m interested in',
+      topicOptions: [
+        'Project services',
+        'Commercial partnerships',
+        'Operational support',
+        'Infrastructure & construction',
+        'Other',
+      ],
+      message: 'Message',
+      optional: 'optional',
+      submit: 'Send message',
+      sending: 'Sending…',
+      success: 'Thank you — your message has been sent. We’ll be in touch shortly.',
+      error: 'Something went wrong. Please try again, or contact us by email or WhatsApp.',
+      mailtoNote: 'Your email app should now open so you can send this message.',
+      mailSubject: 'Website enquiry',
+    },
+  },
+};

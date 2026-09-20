@@ -1,0 +1,65 @@
+---
+import { getContent, pagePath, type Lang, type Page } from '../i18n';
+import type { Img } from '../data/images';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+  title: string;
+  text: string;
+  /** Optional photograph that fades into the dark hero */
+  image?: Img;
+}
+
+const { lang, page, title, text, image } = Astro.props;
+const t = getContent(lang);
+---
+
+<header class="relative overflow-hidden bg-night-900 text-white">
+  {
+    image && (
+      <div class="hero-photo" aria-hidden="true">
+        <img src={image.src} width={image.width} height={image.height} alt="" fetchpriority="high" />
+      </div>
+    )
+  }
+
+  <div class="container-x relative py-14 md:py-20 xl:py-24">
+    <!-- decorative gear, kept inside the content grid so it lines up on every screen size -->
+    {
+      !image && (
+        <div class="pointer-events-none absolute -end-16 top-1/2 -translate-y-1/2 opacity-[0.09]" aria-hidden="true">
+          <div class="spin-slow h-[26rem] w-[26rem] rounded-full border-[18px] border-dashed border-gold-400 md:h-[30rem] md:w-[30rem]" />
+          <div class="absolute inset-8 rounded-full border border-gold-400" />
+        </div>
+      )
+    }
+
+    <nav aria-label="Breadcrumb" class="rise relative mb-6 text-sm text-white/70" style="--d:0ms">
+      <a href={pagePath(lang, 'home')} class="hover:text-gold-300">{t.nav.home}</a>
+      <span class="mx-2" aria-hidden="true">/</span>
+      <span class="text-gold-300" aria-current="page">{t.nav[page]}</span>
+    </nav>
+    <h1 class="h-display relative max-w-3xl text-4xl sm:text-5xl xl:text-6xl">
+      <span class="line-mask"><span class="line-in" style="--d:120ms">{title}</span></span>
+    </h1>
+    <p class="prose-lead rise relative mt-5 max-w-2xl !text-white/80" style="--d:300ms">{text}</p>
+    <div class="grow-line mt-8 h-1 w-20 rounded bg-gold-500" style="animation: grow-x 1.2s var(--ease-out-expo) 0.5s backwards"></div>
+  </div>
+</header>
+
+<style>
+  .spin-slow {
+    animation: spin 140s linear infinite;
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spin-slow {
+      animation: none;
+    }
+  }
+</style>

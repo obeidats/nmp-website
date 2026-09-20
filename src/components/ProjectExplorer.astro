@@ -1,0 +1,204 @@
+---
+import Icon from './Icon.astro';
+import { getContent, pagePath, type Lang } from '../i18n';
+import { projectIds } from '../data/site';
+import { covers, gallery } from '../data/images';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+const ex = t.projects.explorer;
+const categories = t.services.infrastructure.categories;
+
+/** Thumbnail columns on large screens, so a row never ends with a single orphan */
+const columns: Record<number, string> = { 4: 'lg:grid-cols-4', 5: 'lg:grid-cols-5', 6: 'lg:grid-cols-3' };
+---
+
+<div data-explorer data-reveal="fade" class="scroll-mt-24">
+  <div
+    role="tablist"
+    aria-label={ex.tabsLabel}
+    class="tablist -mx-1 flex gap-2 overflow-x-auto px-1 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    {
+      projectIds.map((id, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`tab-${id}`}
+          aria-controls={id}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          class="tab-btn"
+        >
+          <Icon name={categories[i]!.icon!} size={18} />
+          {categories[i]!.tab}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    projectIds.map((id, i) => {
+      const cat = categories[i]!;
+      const d = ex.disciplines[i]!;
+      const cover = covers[id];
+      const shots = gallery[id];
+      return (
+        <section
+          role="tabpanel"
+          id={id}
+          aria-labelledby={`tab-${id}`}
+          tabindex="0"
+          class:list={['tab-panel card mt-3 overflow-hidden', i === 0 && 'is-active']}
+        >
+          <div class="lg:grid lg:grid-cols-[0.8fr_1.2fr]">
+            <div class="photo h-64 !rounded-none sm:h-80 lg:h-auto lg:min-h-[36rem]">
+              <img
+                src={cover.src}
+                width={cover.width}
+                height={cover.height}
+                alt=""
+                loading={i === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-night-950/90 via-night-950/20 to-transparent" />
+              <div class="absolute inset-x-0 bottom-0 p-6 text-white md:p-8">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/80 bg-night-950/50 text-gold-400">
+                  <Icon name={cat.icon!} size={24} />
+                </span>
+                <h3 class="h-display mt-4 text-2xl md:text-3xl">{cat.title}</h3>
+              </div>
+            </div>
+
+            <div class="p-7 md:p-10">
+              <p class="text-lg font-semibold text-night-900">{d.summary}</p>
+              <p class="mt-3 text-muted">{d.detail}</p>
+
+              <h4 class="eyebrow mt-8 text-gold-700">{ex.scopeTitle}</h4>
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {cat.items.map((item) => (
+                  <li class="inline-flex items-center gap-2 rounded-full bg-cream-100 px-3.5 py-1.5 text-sm font-medium text-night-800">
+                    <Icon name="check" size={15} class="text-gold-600" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+
+              <h4 class="eyebrow mt-8 text-gold-700">{ex.methodTitle}</h4>
+              <ol class="mt-4 grid gap-x-8 gap-y-5 sm:grid-cols-2">
+                {d.method.map((m, n) => (
+                  <li class="flex items-start gap-3.5">
+                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-night-900 font-display text-sm font-bold text-gold-400">
+                      {n + 1}
+                    </span>
+                    <div>
+                      <p class="h-display text-[0.95rem] text-night-900">{m.title}</p>
+                      <p class="mt-0.5 text-sm text-muted">{m.text}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <h4 class="eyebrow mt-8 text-gold-700">{ex.qualityTitle}</h4>
+              <ul class="mt-4 space-y-2.5">
+                {d.quality.map((q) => (
+                  <li class="flex items-start gap-3 text-[0.95rem] text-night-800">
+                    <Icon name="shield" size={18} class="mt-1 shrink-0 text-gold-600" />
+                    {q}
+                  </li>
+                ))}
+              </ul>
+
+              <a href={pagePath(lang, 'contact')} class="btn btn-primary mt-9">
+                {ex.discuss}
+                <Icon name="arrow" size={18} class="icon-arrow rtl:-scale-x-100" />
+              </a>
+            </div>
+          </div>
+
+          <div class="border-t border-cream-200 bg-cream-50 p-6 md:p-8">
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+              <h4 class="h-display text-lg text-night-900">{ex.galleryTitle}</h4>
+              <p class="text-sm text-muted">{ex.galleryNote}</p>
+            </div>
+            <ul class:list={['mt-5 grid grid-cols-2 gap-3 md:grid-cols-3', columns[shots.length]]}>
+              {shots.map((shot, n) => (
+                <li>
+                  <button
+                    type="button"
+                    class="thumb"
+                    data-lightbox={id}
+                    data-src={shot.src}
+                    data-caption={d.gallery[n]}
+                    aria-label={`${t.ui.lightbox.open}: ${d.gallery[n]}`}
+                  >
+                    <img src={shot.src} width={shot.width} height={shot.height} alt="" loading="lazy" decoding="async" />
+                    <span class="thumb-cap">{d.gallery[n]}</span>
+                    <span class="thumb-zoom">
+                      <Icon name="expand" size={16} />
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      );
+    })
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-explorer]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')!)!);
+    const rtl = getComputedStyle(root).direction === 'rtl';
+
+    const select = (index: number, options: { focus?: boolean; hash?: boolean; scroll?: boolean } = {}) => {
+      tabs.forEach((tab, i) => {
+        const on = i === index;
+        tab.setAttribute('aria-selected', String(on));
+        tab.tabIndex = on ? 0 : -1;
+        panels[i]?.classList.toggle('is-active', on);
+      });
+      const panel = panels[index];
+      panel?.classList.remove('tab-panel-in');
+      void panel?.offsetWidth; // restart the entrance animation
+      panel?.classList.add('tab-panel-in');
+      if (options.focus) tabs[index]?.focus();
+      tabs[index]?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+      if (options.hash && panel) history.replaceState(null, '', `#${panel.id}`);
+      if (options.scroll) root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i, { hash: true }));
+      tab.addEventListener('keydown', (event) => {
+        const count = tabs.length;
+        const next = rtl ? 'ArrowLeft' : 'ArrowRight';
+        const prev = rtl ? 'ArrowRight' : 'ArrowLeft';
+        let target = -1;
+        if (event.key === next) target = (i + 1) % count;
+        else if (event.key === prev) target = (i - 1 + count) % count;
+        else if (event.key === 'Home') target = 0;
+        else if (event.key === 'End') target = count - 1;
+        if (target >= 0) {
+          event.preventDefault();
+          select(target, { focus: true, hash: true });
+        }
+      });
+    });
+
+    // Deep links such as /projects/#water open that discipline
+    const openFromHash = () => {
+      const index = panels.findIndex((panel) => `#${panel.id}` === location.hash);
+      if (index >= 0) select(index, { scroll: true });
+    };
+    openFromHash();
+    window.addEventListener('hashchange', openFromHash);
+  });
+</script>

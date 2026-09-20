@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Icon from '../../components/Icon.astro';
+import { getContent, staticLangPaths, type Lang } from '../../i18n';
+import type { IconName } from '../../components/icons';
+import { site } from '../../data/site';
+import { photos } from '../../data/images';
+import { rv } from '../../lib/reveal';
+
+export const getStaticPaths = staticLangPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = getContent(lang);
+const c = t.contact;
+
+const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(c.whatsapp.prefill)}`;
+
+const details: { icon: IconName; label: string; value: string; href?: string; ltr?: boolean }[] = [
+  { icon: 'phone', label: t.ui.phoneLabel, value: site.phoneDisplay, href: `tel:${site.phone}`, ltr: true },
+  { icon: 'mail', label: t.ui.emailLabel, value: site.email, href: `mailto:${site.email}`, ltr: true },
+  { icon: 'pin', label: t.ui.locationLabel, value: `${t.ui.address}\n${t.ui.poBoxLine}` },
+];
+---
+
+<BaseLayout lang={lang} page="contact" title={c.seoTitle} description={c.header.text}>
+  <PageHero lang={lang} page="contact" title={c.header.title} text={c.header.text} image={photos.partners} />
+
+  <Section tone="cream">
+    <div class="grid gap-8 lg:grid-cols-[1fr_1.35fr] lg:items-start">
+      <div class="space-y-6">
+        <div {...rv(0, 'start')} class="card p-7 sm:p-8">
+          <h2 class="h-display text-2xl text-night-900">{c.detailsTitle}</h2>
+          <ul class="mt-6 space-y-6">
+            {
+              details.map((d) => (
+                <li class="flex items-start gap-4">
+                  <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-night-900 text-gold-400">
+                    <Icon name={d.icon} size={22} />
+                  </span>
+                  <div class="min-w-0">
+                    <p class="text-sm font-semibold text-gold-700">{d.label}</p>
+                    {d.href ? (
+                      <a
+                        href={d.href}
+                        dir={d.ltr ? 'ltr' : undefined}
+                        class="mt-0.5 block break-words font-medium text-night-900 hover:text-gold-700"
+                        style={d.ltr ? 'text-align:start' : undefined}
+                      >
+                        {d.value}
+                      </a>
+                    ) : (
+                      <p class="mt-0.5 font-medium whitespace-pre-line text-night-900">{d.value}</p>
+                    )}
+                  </div>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div {...rv(1, 'start')} class="rounded-2xl bg-night-900 p-7 text-white sm:p-8">
+          <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[#25d366] text-white">
+            <Icon name="whatsapp" size={24} />
+          </span>
+          <h2 class="h-display mt-4 text-xl">{c.whatsapp.title}</h2>
+          <p class="mt-2 text-white/75">{c.whatsapp.text}</p>
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" class="btn btn-primary mt-6">
+            {t.ui.chatOnWhatsapp}
+            <Icon name="arrow" size={18} class="icon-arrow rtl:-scale-x-100" />
+          </a>
+        </div>
+      </div>
+
+      <div {...rv(0, 'end')}>
+        <ContactForm lang={lang} />
+      </div>
+    </div>
+  </Section>
+</BaseLayout>

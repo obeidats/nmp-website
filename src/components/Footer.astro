@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro';
+import { getContent, pagePath, pages, type Lang } from '../i18n';
+import { site } from '../data/site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = getContent(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-night-950 text-white/75">
+  <div class="container-x grid gap-12 py-16 md:grid-cols-[1.4fr_1fr_1.2fr]">
+    <div>
+      <img src="/brand/logo-dark-bg.png" alt={t.meta.siteName} width="441" height="156" class="h-16 w-auto" loading="lazy" />
+      <p class="mt-6 max-w-sm text-[0.95rem]">{t.ui.footerBlurb}</p>
+      <p class="mt-4 text-sm font-semibold text-gold-400">{t.home.hero.tagline}</p>
+    </div>
+
+    <div>
+      <h2 class="mb-5 text-sm font-semibold tracking-wider text-white uppercase">{t.ui.quickLinks}</h2>
+      <ul class="space-y-3 text-[0.95rem]">
+        {
+          pages.map((p) => (
+            <li>
+              <a href={pagePath(lang, p)} class="transition-colors hover:text-gold-300">
+                {t.nav[p]}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="mb-5 text-sm font-semibold tracking-wider text-white uppercase">{t.contact.detailsTitle}</h2>
+      <ul class="space-y-4 text-[0.95rem]">
+        <li class="flex items-start gap-3">
+          <Icon name="phone" size={20} class="mt-1 shrink-0 text-gold-400" />
+          <a href={`tel:${site.phone}`} dir="ltr" class="transition-colors hover:text-gold-300">{site.phoneDisplay}</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="mail" size={20} class="mt-1 shrink-0 text-gold-400" />
+          <a href={`mailto:${site.email}`} class="break-all transition-colors hover:text-gold-300">{site.email}</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="pin" size={20} class="mt-1 shrink-0 text-gold-400" />
+          <span>{t.ui.address}<br />{t.ui.poBoxLine}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/10">
+    <div class="container-x flex flex-col gap-2 py-6 text-sm text-white/55 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {t.meta.siteName}. {t.ui.rights}</p>
+      <p>{t.ui.crLabel}: <span dir="ltr">{site.commercialRegistration}</span></p>
+    </div>
+  </div>
+</footer>

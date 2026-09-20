@@ -1,0 +1,123 @@
+---
+import Icon from './Icon.astro';
+import { getContent, otherLang, pagePath, pages, type Lang, type Page } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+}
+
+const { lang, page } = Astro.props;
+const t = getContent(lang);
+const alt = otherLang(lang);
+---
+
+<header data-header class="sticky top-0 z-50 border-b border-white/10 bg-night-900/90 text-white backdrop-blur-md">
+  <div class="container-x hdr-row flex items-center justify-between gap-4">
+    <a href={pagePath(lang, 'home')} class="shrink-0" aria-label={`${t.meta.siteName} — ${t.nav.home}`}>
+      <img
+        src="/brand/logo-dark-bg.png"
+        alt={t.meta.siteName}
+        width="441"
+        height="156"
+        class="hdr-logo w-auto"
+      />
+    </a>
+
+    <nav aria-label={t.ui.mainNav} class="hidden items-center gap-1 lg:flex">
+      {
+        pages.map((p) => (
+          <a
+            href={pagePath(lang, p)}
+            aria-current={p === page ? 'page' : undefined}
+            class:list={[
+              'nav-link px-4 py-2 text-[0.95rem] font-medium transition-colors',
+              p === page ? 'text-gold-400' : 'text-white/80 hover:text-white',
+            ]}
+          >
+            {t.nav[p]}
+          </a>
+        ))
+      }
+      <a
+        href={pagePath(alt, page)}
+        hreflang={alt}
+        lang={alt}
+        aria-label={t.ui.switchLanguageAria}
+        class="ms-4 inline-flex items-center gap-2 rounded-md border border-white/25 px-3.5 py-1.5 text-sm font-semibold text-white transition-colors hover:border-gold-400 hover:text-gold-300"
+      >
+        <Icon name="globe" size={16} />
+        {t.ui.switchLanguageLabel}
+      </a>
+    </nav>
+
+    <button
+      type="button"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/25 lg:hidden"
+    >
+      <span class="sr-only" data-label-open={t.ui.openMenu} data-label-close={t.ui.closeMenu}>{t.ui.openMenu}</span>
+      <Icon name="menu" />
+      <Icon name="close" class="hidden" />
+    </button>
+  </div>
+
+  <div id="mobile-menu" data-menu hidden class="border-t border-white/10 bg-night-900 lg:hidden">
+    <nav aria-label={t.ui.mainNav} class="container-x flex flex-col py-3">
+      {
+        pages.map((p) => (
+          <a
+            href={pagePath(lang, p)}
+            aria-current={p === page ? 'page' : undefined}
+            class:list={[
+              'border-b border-white/10 py-3.5 text-base font-medium',
+              p === page ? 'text-gold-400' : 'text-white/85',
+            ]}
+          >
+            {t.nav[p]}
+          </a>
+        ))
+      }
+      <a
+        href={pagePath(alt, page)}
+        hreflang={alt}
+        lang={alt}
+        aria-label={t.ui.switchLanguageAria}
+        class="flex items-center gap-2 py-3.5 text-base font-semibold text-gold-300"
+      >
+        <Icon name="globe" size={18} />
+        {t.ui.switchLanguageLabel}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+
+  if (toggle && menu) {
+    const label = toggle.querySelector<HTMLElement>('[data-label-open]');
+    const [openIcon, closeIcon] = Array.from(toggle.querySelectorAll('svg'));
+
+    const setOpen = (open: boolean) => {
+      menu.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      openIcon?.classList.toggle('hidden', open);
+      closeIcon?.classList.toggle('hidden', !open);
+      if (label) label.textContent = open ? label.dataset.labelClose! : label.dataset.labelOpen!;
+    };
+
+    toggle.addEventListener('click', () => setOpen(menu.hasAttribute('hidden')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hasAttribute('hidden')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    // Close when the viewport grows to the desktop layout
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && setOpen(false));
+  }
+</script>

@@ -1,0 +1,129 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+import {
+  defaultLang,
+  getContent,
+  getDir,
+  languages,
+  otherLang,
+  pagePath,
+  type Lang,
+  type Page,
+} from '../i18n';
+import { site } from '../data/site';
+
+interface Props {
+  lang: Lang;
+  page: Page;
+  /** Page-specific title; the site suffix is appended automatically */
+  title: string;
+  description?: string;
+}
+
+const { lang, page, title, description } = Astro.props;
+const t = getContent(lang);
+const dir = getDir(lang);
+
+const fullTitle = `${title} | ${t.meta.titleSuffix}`;
+const metaDescription = description ?? t.meta.description;
+const canonical = new URL(pagePath(lang, page), site.url).href;
+const ogImage = new URL('/icon-512.png', site.url).href;
+
+const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t.contact.whatsapp.prefill)}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: t.meta.siteName,
+  alternateName: [getContent('en').meta.siteName, getContent('ar').meta.siteName, 'NM Projects'],
+  url: site.url,
+  logo: new URL('/icon-512.png', site.url).href,
+  email: site.email,
+  telephone: site.phone,
+  foundingDate: String(site.established),
+  description: t.meta.description,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Seeb',
+    addressRegion: 'Muscat',
+    addressCountry: 'OM',
+    postOfficeBoxNumber: site.poBox,
+    postalCode: site.postalCode,
+  },
+  areaServed: ['OM', 'Gulf Cooperation Council'],
+};
+---
+
+<!doctype html>
+<html lang={lang} dir={dir}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <meta name="theme-color" content="#062427" />
+
+    <link rel="canonical" href={canonical} />
+    {
+      languages.map((l) => (
+        <link rel="alternate" hreflang={l} href={new URL(pagePath(l, page), site.url).href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL(pagePath(defaultLang, page), site.url).href} />
+
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={t.meta.siteName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={lang === 'ar' ? 'ar_OM' : 'en_US'} />
+    <meta property="og:locale:alternate" content={otherLang(lang) === 'ar' ? 'ar_OM' : 'en_US'} />
+    <meta name="twitter:card" content="summary" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <!-- Enables reveal animations; falls back to showing everything if the main script fails to load -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+      setTimeout(function () {
+        if (!window.__motionReady) document.documentElement.classList.add('no-motion');
+      }, 2500);
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only z-[100] rounded-md bg-gold-500 px-4 py-2 font-semibold text-night-950 focus:not-sr-only focus:fixed focus:start-4 focus:top-4"
+    >
+      {t.ui.skipToContent}
+    </a>
+    <div class="scroll-progress" data-progress aria-hidden="true"></div>
+    <Header lang={lang} page={page} />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+
+    <a
+      href={whatsappHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={t.ui.whatsappFloating}
+      class="fixed bottom-5 end-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-lg transition-transform hover:scale-105"
+    >
+      <Icon name="whatsapp" size={28} strokeWidth={1.7} />
+    </a>
+
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>

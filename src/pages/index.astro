@@ -1,0 +1,21 @@
+---
+// Arabic is the primary language, so the root URL sends everyone to /ar/ (the header offers English).
+---
+
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>نسق للمشاريع الحديثة | Nasaq Modern Projects</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content="0; url=/ar/" />
+    <link rel="canonical" href="https://nmproject-oman.com/ar/" />
+    <script is:inline>
+      location.replace('/ar/' + location.search + location.hash);
+    </script>
+  </head>
+  <body style="background:#062427;color:#fff;font-family:system-ui,sans-serif;text-align:center;padding:4rem 1rem">
+    <p><a href="/en/" style="color:#e0b674">English</a> · <a href="/ar/" style="color:#e0b674">العربية</a></p>
+  </body>
+</html>

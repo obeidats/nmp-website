@@ -1,0 +1,167 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import PortfolioChart from '../../components/PortfolioChart.astro';
+import ProjectExplorer from '../../components/ProjectExplorer.astro';
+import Lightbox from '../../components/Lightbox.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { getContent, pagePath, staticLangPaths, type Lang } from '../../i18n';
+import { site } from '../../data/site';
+import { covers, photos } from '../../data/images';
+import { rv } from '../../lib/reveal';
+
+export const getStaticPaths = staticLangPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = getContent(lang);
+const p = t.projects;
+
+const totals = site.portfolio.totals;
+const millions = totals.valueOMR / 1_000_000;
+const suffix = t.home.stats.millionSuffix;
+
+/** `from` / `to` drive the count-up animation; `text` is what shows without JavaScript. */
+const stats = [
+  { text: String(totals.projects), to: totals.projects, decimals: 0, suffix: '', label: p.portfolio.stats.projects },
+  { text: String(totals.completed), to: totals.completed, decimals: 0, suffix: '', label: p.portfolio.stats.completed },
+  { text: String(totals.ongoing), to: totals.ongoing, decimals: 0, suffix: '', label: p.portfolio.stats.ongoing },
+  {
+    text: `${millions.toFixed(2)}${suffix}`,
+    to: Number(millions.toFixed(2)),
+    decimals: 2,
+    suffix,
+    label: p.portfolio.stats.value,
+  },
+];
+---
+
+<BaseLayout lang={lang} page="projects" title={p.seoTitle} description={p.header.text}>
+  <PageHero lang={lang} page="projects" title={p.header.title} text={p.header.text} image={covers.roads} />
+
+  <!-- Portfolio in numbers -->
+  <Section tone="light">
+    <SectionHeading layout="split" kicker={p.portfolio.kicker} title={p.portfolio.title} text={p.portfolio.text} />
+
+    <dl class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {
+        stats.map((s, i) => (
+          <div {...rv(i, 'pop')} class="card flex flex-col-reverse gap-1 px-5 py-5 md:px-7 md:py-6">
+            <dt class="text-sm font-medium text-muted">{s.label}</dt>
+            <dd
+              class="h-display tabular text-3xl text-night-900 md:text-4xl"
+              data-count
+              data-to={s.to}
+              data-from="0"
+              data-decimals={s.decimals}
+              data-suffix={s.suffix}
+            >
+              {s.text}
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-6">
+      <PortfolioChart lang={lang} />
+    </div>
+  </Section>
+
+  <!-- The five disciplines -->
+  <Section tone="cream" id="disciplines">
+    <SectionHeading layout="split" kicker={p.explorer.kicker} title={p.explorer.title} text={p.explorer.text} />
+    <div class="mt-10">
+      <ProjectExplorer lang={lang} />
+    </div>
+  </Section>
+
+  <!-- How a project runs -->
+  <Section tone="dark">
+    <div class="grid items-start gap-12 lg:grid-cols-[0.95fr_1.05fr] xl:gap-20">
+      <div>
+        <SectionHeading tone="dark" kicker={p.framework.kicker} title={p.framework.title} text={p.framework.text} />
+        <div {...rv(1, 'start')} class="photo mt-8 hidden aspect-[757/641] max-w-lg lg:block">
+          <img
+            src={photos.delivery.src}
+            width={photos.delivery.width}
+            height={photos.delivery.height}
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+
+      <div {...rv(0, 'end')} class="border-t border-white/12">
+        {
+          p.framework.stages.map((stage, i) => (
+            <details class="group stage" name="stage" open={i === 0}>
+              <summary>
+                <span class="stage-num flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-gold-500/70 font-display text-lg font-bold text-gold-400 group-open:border-gold-500 group-open:bg-gold-500 group-open:text-night-950">
+                  {i + 1}
+                </span>
+                <span class="min-w-0">
+                  <span class="h-display block text-xl">{stage.title}</span>
+                </span>
+                <Icon name="chevron" size={22} class="stage-chev" />
+              </summary>
+              <div class="stage-body pb-6 ps-16">
+                <p class="text-white/80">{stage.text}</p>
+                <ul class="mt-4 space-y-2.5">
+                  {stage.points.map((pt) => (
+                    <li class="flex items-start gap-3 text-[0.95rem] text-white/75">
+                      <Icon name="check" size={18} class="mt-1 shrink-0 text-gold-400" />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Quality, safety & compliance -->
+  <Section tone="light">
+    <div class="grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] xl:gap-20">
+      <div {...rv(0, 'start')} class="photo hidden aspect-[4/4.4] lg:block">
+        <img
+          src={photos.safety.src}
+          width={photos.safety.width}
+          height={photos.safety.height}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div>
+        <SectionHeading kicker={p.assurance.kicker} title={p.assurance.title} text={p.assurance.text} />
+        <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+          {
+            p.assurance.items.map((item, i) => (
+              <li {...rv(i)} class="card card-hover p-6">
+                <span class="flex h-12 w-12 items-center justify-center rounded-full bg-night-900 text-gold-400">
+                  <Icon name={item.icon!} size={24} />
+                </span>
+                <h3 class="h-display mt-4 text-lg text-night-900">{item.title}</h3>
+                <p class="mt-1.5 text-[0.95rem] text-muted">{item.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+        <a {...rv(4)} href={`${pagePath(lang, 'about')}#safety`} class="btn btn-outline-dark mt-8">
+          {p.assurance.link}
+          <Icon name="arrow" size={18} class="icon-arrow rtl:-scale-x-100" />
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand lang={lang} />
+  <Lightbox labels={t.ui.lightbox} />
+</BaseLayout>

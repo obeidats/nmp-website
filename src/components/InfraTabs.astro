@@ -1,0 +1,136 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from './icons';
+import type { Img } from '../data/images';
+
+interface Category {
+  icon?: IconName;
+  tab: string;
+  title: string;
+  text?: string;
+  items: string[];
+}
+
+interface Props {
+  categories: Category[];
+  label: string;
+  /** One photo per category, same order */
+  images: Img[];
+  /** One anchor id per category on the Projects page, same order */
+  ids: string[];
+  projectsHref: string;
+  linkLabel: string;
+}
+
+const { categories, label, images, ids, projectsHref, linkLabel } = Astro.props;
+---
+
+<div data-tabs data-reveal="fade">
+  <div
+    role="tablist"
+    aria-label={label}
+    class="tablist -mx-1 flex gap-2 overflow-x-auto px-1 pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+  >
+    {
+      categories.map((c, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`infra-tab-${i}`}
+          aria-controls={`infra-panel-${i}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          class="tab-btn"
+        >
+          {c.icon && <Icon name={c.icon} size={18} />}
+          {c.tab}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    categories.map((c, i) => (
+      <div
+        role="tabpanel"
+        id={`infra-panel-${i}`}
+        aria-labelledby={`infra-tab-${i}`}
+        tabindex="0"
+        class:list={['tab-panel card mt-3 overflow-hidden lg:grid lg:grid-cols-[0.85fr_1.15fr]', i === 0 && 'is-active']}
+      >
+        <div class="photo h-56 !rounded-none sm:h-72 lg:h-auto lg:min-h-[28rem]">
+          <img
+            src={images[i]!.src}
+            width={images[i]!.width}
+            height={images[i]!.height}
+            alt=""
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </div>
+        <div class="p-7 md:p-10">
+          {c.icon && (
+            <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-night-900 text-gold-400">
+              <Icon name={c.icon} size={28} />
+            </span>
+          )}
+          <h3 class="h-display mt-5 text-2xl text-night-900">{c.title}</h3>
+          {c.text && <p class="mt-3 text-muted">{c.text}</p>}
+          <ul class="mt-6 grid content-start gap-x-8 gap-y-0 sm:grid-cols-2">
+            {c.items.map((item) => (
+              <li class="flex items-start gap-3 border-b border-cream-200 py-2.5 text-[0.95rem] font-medium text-night-800">
+                <Icon name="check" size={18} class="mt-1 shrink-0 text-gold-600" />
+                {item}
+              </li>
+            ))}
+          </ul>
+          <a href={`${projectsHref}#${ids[i]}`} class="btn btn-outline-dark mt-8">
+            {linkLabel}
+            <Icon name="arrow" size={18} class="icon-arrow rtl:-scale-x-100" />
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tabs]').forEach((root) => {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+    const panels = tabs.map((tab) => document.getElementById(tab.getAttribute('aria-controls')!)!);
+    const rtl = getComputedStyle(root).direction === 'rtl';
+
+    const select = (index: number, focus = false) => {
+      tabs.forEach((tab, i) => {
+        const on = i === index;
+        tab.setAttribute('aria-selected', String(on));
+        tab.tabIndex = on ? 0 : -1;
+        panels[i]?.classList.toggle('is-active', on);
+      });
+      const panel = panels[index];
+      panel?.classList.remove('tab-panel-in');
+      void panel?.offsetWidth; // restart the entrance animation
+      panel?.classList.add('tab-panel-in');
+      if (focus) tabs[index]?.focus();
+      tabs[index]?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => select(i));
+      tab.addEventListener('keydown', (event) => {
+        const count = tabs.length;
+        const next = rtl ? 'ArrowLeft' : 'ArrowRight';
+        const prev = rtl ? 'ArrowRight' : 'ArrowLeft';
+        let target = -1;
+        if (event.key === next) target = (i + 1) % count;
+        else if (event.key === prev) target = (i - 1 + count) % count;
+        else if (event.key === 'Home') target = 0;
+        else if (event.key === 'End') target = count - 1;
+        if (target >= 0) {
+          event.preventDefault();
+          select(target, true);
+        }
+      });
+    });
+  });
+</script>

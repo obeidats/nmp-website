@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import InfraTabs from '../../components/InfraTabs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { getContent, pagePath, staticLangPaths, type Lang } from '../../i18n';
+import { projectIds } from '../../data/site';
+import { covers, photos } from '../../data/images';
+import { rv } from '../../lib/reveal';
+
+export const getStaticPaths = staticLangPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = getContent(lang);
+const s = t.services;
+
+/** One photo per pillar, same order as `services.pillars` */
+const pillarPhotos = [photos.delivery, photos.partners, photos.operations];
+---
+
+<BaseLayout lang={lang} page="services" title={s.seoTitle} description={s.header.text}>
+  <PageHero lang={lang} page="services" title={s.header.title} text={s.header.text} image={photos.delivery} />
+
+  <!-- Three service pillars -->
+  <Section tone="light">
+    <div class="grid gap-6 lg:grid-cols-3">
+      {
+        s.pillars.map((p, i) => (
+          <article {...rv(i)} class="card card-hover group flex flex-col overflow-hidden">
+            <div class="photo aspect-[16/10] !rounded-none">
+              <img
+                src={pillarPhotos[i]!.src}
+                width={pillarPhotos[i]!.width}
+                height={pillarPhotos[i]!.height}
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="flex flex-1 flex-col px-7 pb-7 xl:px-8 xl:pb-8">
+              <div class="relative z-10 -mt-7 flex items-start justify-between">
+                <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-night-900 text-gold-400 ring-4 ring-white">
+                  <Icon name={p.icon!} size={28} />
+                </span>
+                <span class="mt-8 font-display text-4xl font-bold text-cream-300" aria-hidden="true">0{i + 1}</span>
+              </div>
+              <h2 class="h-display mt-5 text-xl text-night-900">{p.title}</h2>
+              <p class="mt-3 text-[0.95rem] text-muted">{p.text}</p>
+              <ul class="mt-6 flex flex-wrap gap-2 border-t border-cream-200 pt-6">
+                {p.points.map((point) => (
+                  <li class="inline-flex items-center gap-2 rounded-full bg-cream-100 px-3.5 py-1.5 text-sm font-medium text-night-800">
+                    <Icon name="check" size={15} class="text-gold-600" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Delivery model -->
+  <Section tone="dark">
+    <div class="grid items-center gap-10 lg:grid-cols-[0.9fr_1.1fr] xl:gap-20">
+      <SectionHeading tone="dark" kicker={s.deliveryModel.kicker} title={s.deliveryModel.title} text={s.deliveryModel.text} />
+      <div class="grid gap-4 sm:grid-cols-2">
+        {
+          [s.deliveryModel.direct, s.deliveryModel.coordinated].map((d, i) => (
+            <article {...rv(i + 1, 'end')} class="dark-tile rounded-2xl p-7">
+              <span class="flex h-14 w-14 items-center justify-center rounded-full border border-gold-500/70 text-gold-400">
+                <Icon name={d.icon!} size={28} />
+              </span>
+              <h3 class="h-display mt-5 text-xl">{d.title}</h3>
+              <p class="mt-2 text-white/70">{d.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Infrastructure & construction -->
+  <Section tone="cream">
+    <SectionHeading layout="split" kicker={s.infrastructure.kicker} title={s.infrastructure.title} text={s.infrastructure.text} />
+    <div class="mt-10">
+      <InfraTabs
+        categories={s.infrastructure.categories}
+        label={s.infrastructure.title}
+        images={projectIds.map((id) => covers[id])}
+        ids={[...projectIds]}
+        projectsHref={pagePath(lang, 'projects')}
+        linkLabel={t.ui.viewProjectDetails}
+      />
+    </div>
+  </Section>
+
+  <!-- Process -->
+  <Section tone="light">
+    <SectionHeading layout="center" kicker={s.lifecycle.kicker} title={s.lifecycle.title} />
+    <div class="relative mt-14" data-reveal="fade">
+      <div class="absolute inset-x-[7.14%] top-6 hidden h-px bg-night-900/15 md:block" aria-hidden="true">
+        <div class="grow-line h-full bg-gold-500"></div>
+      </div>
+      <ol class="grid gap-4 md:grid-cols-7 md:gap-2">
+        {
+          s.lifecycle.steps.map((step, i) => (
+            <li {...rv(i)} class="flex items-center gap-4 md:flex-col md:gap-4 md:text-center">
+              <span class="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-night-900 font-display font-bold text-gold-400 ring-4 ring-cream-50">
+                {i + 1}
+              </span>
+              <span class="h-display text-[0.95rem] text-night-900 md:max-w-[8rem]">{step}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </Section>
+
+  <!-- What sets our delivery apart -->
+  <Section tone="dark">
+    <SectionHeading tone="dark" layout="split" kicker={s.strengths.kicker} title={s.strengths.title} />
+    <ul class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        s.strengths.items.map((item, i) => (
+          <li {...rv(i, 'pop')} class="dark-tile rounded-2xl p-6">
+            <span class="flex h-14 w-14 items-center justify-center rounded-full border border-gold-500/70 text-gold-400">
+              <Icon name={item.icon!} size={26} />
+            </span>
+            <h3 class="h-display mt-5 text-lg">{item.title}</h3>
+            <p class="mt-2 text-[0.95rem] text-white/70">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <!-- Sectors + regional development -->
+  <Section tone="cream">
+    <div class="grid gap-14 lg:grid-cols-2 xl:gap-20">
+      <div>
+        <SectionHeading kicker={s.sectors.kicker} title={s.sectors.title} />
+        <ul class="mt-8 flex flex-wrap gap-3">
+          {
+            s.sectors.items.map((item, i) => (
+              <li
+                {...rv(i, 'pop')}
+                class="inline-flex items-center gap-2.5 rounded-full border border-night-900/15 bg-white px-4 py-2.5 text-[0.95rem] font-semibold text-night-900 shadow-sm"
+              >
+                <Icon name={item.icon!} size={18} class="text-gold-600" />
+                {item.title}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <SectionHeading kicker={s.regional.kicker} title={s.regional.title} text={s.regional.text} />
+        <ul class="mt-8 divide-y divide-cream-300">
+          {
+            s.regional.items.map((r, i) => (
+              <li {...rv(i)} class="flex items-start gap-4 py-4">
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-night-900 text-gold-400">
+                  <Icon name={r.icon!} size={20} />
+                </span>
+                <div>
+                  <h3 class="h-display text-base text-night-900">{r.title}</h3>
+                  <p class="mt-0.5 text-sm text-muted">{r.text}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand lang={lang} />
+</BaseLayout>

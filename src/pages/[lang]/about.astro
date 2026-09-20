@@ -1,0 +1,306 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Section from '../../components/Section.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import { getContent, staticLangPaths, type Lang } from '../../i18n';
+import { site, formatNumber } from '../../data/site';
+import { photos } from '../../data/images';
+import { rv } from '../../lib/reveal';
+
+export const getStaticPaths = staticLangPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = getContent(lang);
+const a = t.about;
+const p = a.portfolio;
+
+const facts = [
+  { label: a.overview.facts.fullName, value: t.meta.siteName },
+  { label: a.overview.facts.shortName, value: t.meta.shortName },
+  { label: a.overview.facts.registration, value: site.commercialRegistration },
+  { label: a.overview.facts.established, value: String(site.established) },
+  { label: a.overview.facts.location, value: a.overview.facts.locationValue },
+  { label: a.overview.facts.poBox, value: `${site.poBox} / ${site.postalCode}` },
+];
+
+const maxValue = Math.max(...site.portfolio.rows.map((row) => row.valueOMR));
+
+/** In-page jump links; the ids sit on the matching sections below */
+const anchors = [
+  { id: 'overview', label: a.anchors.overview },
+  { id: 'vision', label: a.anchors.vision },
+  { id: 'values', label: a.anchors.values },
+  { id: 'team', label: a.anchors.team },
+  { id: 'portfolio', label: a.anchors.portfolio },
+  { id: 'safety', label: a.anchors.safety },
+];
+---
+
+<BaseLayout lang={lang} page="about" title={a.seoTitle} description={a.header.text}>
+  <PageHero lang={lang} page="about" title={a.header.title} text={a.header.text} image={photos.muscat} />
+
+  <nav aria-label={a.header.title} class="border-b border-cream-200 bg-white">
+    <ul class="container-x flex gap-2 overflow-x-auto py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      {
+        anchors.map((item) => (
+          <li>
+            <a
+              href={`#${item.id}`}
+              class="inline-block whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold text-night-800 transition-colors hover:bg-night-900 hover:text-white"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <!-- Overview -->
+  <Section tone="light" id="overview">
+    <div class="grid items-start gap-12 lg:grid-cols-[1.05fr_1fr] xl:gap-20">
+      <div>
+        <SectionHeading kicker={a.overview.kicker} title={a.overview.title} text={a.overview.text} />
+        <div {...rv(1)} class="photo mt-8 hidden aspect-[16/10] lg:block">
+          <img
+            src={photos.coordination.src}
+            width={photos.coordination.width}
+            height={photos.coordination.height}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="object-[50%_35%]"
+          />
+        </div>
+      </div>
+      <dl {...rv(1, 'end')} class="card divide-y divide-cream-200">
+        {
+          facts.map((f) => (
+            <div class="grid gap-1 px-6 py-4 sm:grid-cols-[11rem_1fr] sm:gap-4">
+              <dt class="text-sm font-semibold text-gold-700">{f.label}</dt>
+              <dd class="font-medium text-night-900">{f.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <!-- Vision & Mission -->
+  <Section tone="dark" id="vision">
+    <div class="grid gap-6 lg:grid-cols-2">
+      <article {...rv(0, 'start')} class="dark-tile rounded-2xl p-8 md:p-10">
+        <p class="eyebrow text-gold-400">{a.vision.kicker}</p>
+        <h2 class="h-display mt-4 text-3xl">{a.vision.title}</h2>
+        <p class="mt-4 text-lg text-white/80">{a.vision.text}</p>
+        <ul class="mt-8 flex flex-wrap gap-3">
+          {a.vision.badges.map((b, i) => (
+            <li class:list={['rounded-xl px-5 py-3 font-display text-lg font-semibold', i === 0 ? 'bg-night-700 text-gold-300' : 'bg-gold-500 text-night-950']}>
+              {b}
+            </li>
+          ))}
+        </ul>
+      </article>
+
+      <article {...rv(1, 'end')} class="dark-tile rounded-2xl p-8 md:p-10">
+        <p class="eyebrow text-gold-400">{a.mission.kicker}</p>
+        <h2 class="h-display mt-4 text-3xl">{a.mission.title}</h2>
+        <p class="mt-4 text-lg text-white/80">{a.mission.text}</p>
+        <ul class="mt-8 flex flex-wrap gap-3">
+          {a.mission.pillars.map((m) => (
+            <li class="rounded-lg border border-gold-500/50 px-5 py-3 font-display text-base font-semibold tracking-wider text-gold-300 uppercase">
+              {m}
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+    <div id="values" class="mt-14 border-t border-white/10 pt-12">
+      <div {...rv(0)} class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+        <h2 class="h-display text-2xl sm:text-3xl">{a.values.title}</h2>
+        <p class="text-white/65">{a.values.text}</p>
+      </div>
+      <ul class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {
+          a.values.items.map((v, i) => (
+            <li {...rv(i, 'pop')} class="dark-tile flex items-center gap-4 rounded-xl p-4 pe-5">
+              <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-gold-500/70 text-gold-400">
+                <Icon name={v.icon!} size={22} />
+              </span>
+              <span class="h-display text-base">{v.title}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- Commercial strength -->
+  <Section tone="cream">
+    <div>
+      <h2 {...rv(0)} class="h-display text-2xl text-night-900 sm:text-3xl">{a.strength.title}</h2>
+      <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+        {
+          a.strength.items.map((s, i) => (
+            <li {...rv(i)}>
+              <span class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-gold-500 text-gold-700">
+                <Icon name={s.icon!} size={22} />
+              </span>
+              <h3 class="h-display mt-4 text-base text-night-900">{s.title}</h3>
+              <p class="mt-1.5 text-sm text-muted">{s.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- Our team: placeholder until the profiles are supplied -->
+  <Section tone="light" id="team">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <SectionHeading kicker={a.team.kicker} title={a.team.title} text={a.team.text} />
+      <span
+        {...rv(1)}
+        class="inline-flex w-fit items-center gap-2 rounded-full border border-gold-500 bg-gold-500/10 px-4 py-2 text-sm font-semibold text-gold-700"
+      >
+        <Icon name="clock" size={16} />
+        {a.team.badge}
+      </span>
+    </div>
+    <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4" aria-hidden="true">
+      {
+        [0, 1, 2, 3].map((n) => (
+          <li {...rv(n, 'pop')} class="card p-6 text-center">
+            <span class="shimmer mx-auto flex h-28 w-28 items-center justify-center rounded-full text-cream-300">
+              <Icon name="users" size={44} strokeWidth={1.2} class="text-white/80" />
+            </span>
+            <span class="shimmer mx-auto mt-5 block h-4 w-3/5 rounded"></span>
+            <span class="shimmer mx-auto mt-3 block h-3 w-2/5 rounded"></span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mt-6 text-center text-muted" role="status">{a.team.note}</p>
+  </Section>
+
+  <!-- Portfolio -->
+  <Section tone="cream" id="portfolio">
+    <SectionHeading layout="split" kicker={p.kicker} title={p.title} text={p.text} />
+    <div class="card mt-10 overflow-hidden" data-reveal="fade">
+      <div class="overflow-x-auto">
+        <table class="w-full min-w-[42rem] text-start text-[0.95rem]">
+          <thead class="bg-night-900 text-white">
+            <tr>
+              <th scope="col" class="px-6 py-4 text-start font-semibold">{p.headers.sector}</th>
+              <th scope="col" class="px-4 py-4 text-center font-semibold">{p.headers.projects}</th>
+              <th scope="col" class="px-4 py-4 text-center font-semibold">{p.headers.completed}</th>
+              <th scope="col" class="px-4 py-4 text-center font-semibold">{p.headers.ongoing}</th>
+              <th scope="col" class="px-6 py-4 text-end font-semibold">{p.headers.value}</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-cream-200">
+            {
+              site.portfolio.rows.map((row, i) => (
+                <tr class="transition-colors hover:bg-cream-50" style={`--i:${i}`}>
+                  <th scope="row" class="px-6 py-4 text-start font-semibold text-night-900">
+                    {p.sectors[row.id]}
+                    <span class="mt-2 block h-1 w-full max-w-[14rem] overflow-hidden rounded bg-cream-200" aria-hidden="true">
+                      <span
+                        class="grow-line block h-full rounded bg-gold-500"
+                        style={`width:${((row.valueOMR / maxValue) * 100).toFixed(1)}%`}
+                      />
+                    </span>
+                  </th>
+                  <td class="tabular px-4 py-4 text-center">{row.projects}</td>
+                  <td class="tabular px-4 py-4 text-center">{row.completed}</td>
+                  <td class="tabular px-4 py-4 text-center">{row.ongoing}</td>
+                  <td class="tabular px-6 py-4 text-end font-medium">{formatNumber(row.valueOMR)}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+          <tfoot class="bg-sage-300/40 font-bold text-night-950">
+            <tr>
+              <th scope="row" class="px-6 py-4 text-start">{p.headers.total}</th>
+              <td class="tabular px-4 py-4 text-center">{site.portfolio.totals.projects}</td>
+              <td class="tabular px-4 py-4 text-center">{site.portfolio.totals.completed}</td>
+              <td class="tabular px-4 py-4 text-center">{site.portfolio.totals.ongoing}</td>
+              <td class="tabular px-6 py-4 text-end">{formatNumber(site.portfolio.totals.valueOMR)}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <p class="mt-5 flex items-start gap-3 text-sm text-muted" data-reveal="fade">
+      <Icon name="shield" size={20} class="mt-0.5 shrink-0 text-gold-600" />
+      {p.note}
+    </p>
+  </Section>
+
+  <!-- Health & safety -->
+  <Section tone="dark" id="safety">
+    <div class="grid items-start gap-12 lg:grid-cols-[1.05fr_1fr] xl:gap-20">
+      <div>
+        <SectionHeading tone="dark" kicker={a.ohs.kicker} title={a.ohs.title} text={a.ohs.text} />
+        <ul class="mt-8 space-y-3">
+          {a.ohs.points.map((pt, i) => (
+            <li {...rv(i + 1)} class="flex items-start gap-3 text-white/85">
+              <Icon name="check" size={20} class="mt-1 shrink-0 text-gold-400" />
+              {pt}
+            </li>
+          ))}
+        </ul>
+        <p {...rv(5)} class="mt-8 border-s-4 border-gold-500 ps-5 text-white/65">{a.ohs.closing}</p>
+      </div>
+      <div class="grid content-start gap-4">
+        <div {...rv(0, 'end')} class="photo aspect-[16/9]">
+          <img
+            src={photos.safety.src}
+            width={photos.safety.width}
+            height={photos.safety.height}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            class="object-[50%_35%]"
+          />
+        </div>
+      <ul class="grid content-start gap-4 sm:grid-cols-2">
+        {
+          a.ohs.pillars.map((o, i) => (
+            <li {...rv(i, 'pop')} class="dark-tile rounded-2xl p-6">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full border border-gold-500/70 text-gold-400">
+                <Icon name={o.icon!} size={24} />
+              </span>
+              <h3 class="h-display mt-4 text-base">{o.title}</h3>
+              <p class="mt-1 text-sm text-white/65">{o.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Regional partnerships -->
+  <Section tone="cream">
+    <SectionHeading layout="split" kicker={a.partnerships.kicker} title={a.partnerships.title} text={a.partnerships.text} />
+    <ul class="mt-10 grid gap-6 md:grid-cols-3">
+      {
+        a.partnerships.items.map((it, i) => (
+          <li {...rv(i)} class="card card-hover p-7">
+            <span class="flex h-14 w-14 items-center justify-center rounded-full bg-night-900 text-gold-400">
+              <Icon name={it.icon!} size={26} />
+            </span>
+            <h3 class="h-display mt-5 text-lg text-night-900">{it.title}</h3>
+            <p class="mt-2 text-[0.95rem] text-muted">{it.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <CtaBand lang={lang} />
+</BaseLayout>
