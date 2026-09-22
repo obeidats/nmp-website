@@ -337,6 +337,9 @@ export const en: Content = {
         ongoing: 'Ongoing',
         value: 'Portfolio value (OMR)',
       },
+      filters: { all: 'All projects', completed: 'Completed', ongoing: 'Ongoing' },
+      valueLabel: 'Sector value (OMR)',
+      note: 'Bars show the number of projects; the value shown is the total for the whole sector.',
     },
     explorer: {
       kicker: 'Disciplines',

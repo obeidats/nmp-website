@@ -1,8 +1,6 @@
 ---
-import Icon from './Icon.astro';
-import type { IconName } from './icons';
 import { getContent, type Lang } from '../i18n';
-import { site, formatNumber, type PortfolioId } from '../data/site';
+import { site, formatNumber } from '../data/site';
 
 interface Props {
   lang: Lang;
@@ -10,100 +8,89 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = getContent(lang);
-const { headers, sectors, note } = t.about.portfolio;
-const { rows, totals } = site.portfolio;
+const p = t.projects.portfolio;
+const sectors = t.about.portfolio.sectors;
+const totalLabel = t.about.portfolio.headers.total;
 
-const sectorIcons: Record<PortfolioId, IconName> = {
-  civil: 'crane',
-  electrical: 'bolt',
-  telecom: 'network',
-  utilities: 'droplet',
-  water: 'waterTower',
-};
-
+const filters = ['all', 'completed', 'ongoing'] as const;
+/** One shared scale so bars stay comparable between filters */
+const scale = Math.max(...site.portfolio.rows.map((row) => row.projects));
+const percent = (n: number) => ((n / scale) * 100).toFixed(1);
 /** Rial amounts are written the way they appear on the company's documents: 2,026,097/= */
 const omr = (value: number) => `${formatNumber(value)}/=`;
-
-const countCols: { key: 'projects' | 'completed' | 'ongoing'; icon: IconName }[] = [
-  { key: 'projects', icon: 'clipboard' },
-  { key: 'completed', icon: 'checkCircle' },
-  { key: 'ongoing', icon: 'clock' },
-];
 ---
 
-<div data-reveal="fade">
-  <div class="card overflow-hidden">
-    <div class="overflow-x-auto">
-      <table class="w-full min-w-[48rem] text-start text-[0.95rem]">
-        <thead class="bg-night-900 whitespace-nowrap text-white">
-          <tr>
-            <th scope="col" class="px-6 py-4 text-start font-semibold">
-              <span class="inline-flex items-center gap-2.5">
-                <Icon name="building" size={20} class="shrink-0 text-gold-400" />
-                {headers.sector}
-              </span>
-            </th>
-            {
-              countCols.map((col) => (
-                <th scope="col" class="px-4 py-4 text-center font-semibold">
-                  <span class="inline-flex items-center gap-2">
-                    <Icon name={col.icon} size={18} class="shrink-0 text-gold-400" />
-                    {headers[col.key]}
-                  </span>
-                </th>
-              ))
-            }
-            <th scope="col" class="px-6 py-4 text-end font-semibold">
-              <span class="inline-flex items-center gap-2">
-                <Icon name="chart" size={18} class="shrink-0 text-gold-400" />
-                {headers.value}
-              </span>
-            </th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-cream-200">
-          {
-            rows.map((row) => (
-              <tr class="transition-colors hover:bg-cream-50">
-                <th scope="row" class="px-6 py-4 text-start font-semibold text-night-900">
-                  <span class="flex items-center gap-3">
-                    <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-night-900 text-gold-400">
-                      <Icon name={sectorIcons[row.id]} size={20} />
-                    </span>
-                    {sectors[row.id]}
-                  </span>
-                </th>
-                <td class="tabular px-4 py-4 text-center font-semibold text-night-900">{row.projects}</td>
-                <td class="tabular px-4 py-4 text-center">{row.completed}</td>
-                <td class="tabular px-4 py-4 text-center">{row.ongoing}</td>
-                <td class="tabular px-6 py-4 text-end font-semibold text-night-900">
-                  <span dir="ltr" class="inline-block">{omr(row.valueOMR)}</span>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-        <tfoot class="bg-sage-300/40 font-bold text-night-950">
-          <tr>
-            <th scope="row" class="px-6 py-4 text-start">
-              <span class="flex items-center gap-3">
-                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-night-900 text-gold-400">
-                  <Icon name="sigma" size={20} />
-                </span>
-                {headers.total}
-              </span>
-            </th>
-            <td class="tabular px-4 py-4 text-center">{totals.projects}</td>
-            <td class="tabular px-4 py-4 text-center">{totals.completed}</td>
-            <td class="tabular px-4 py-4 text-center">{totals.ongoing}</td>
-            <td class="tabular px-6 py-4 text-end"><span dir="ltr" class="inline-block">{omr(totals.valueOMR)}</span></td>
-          </tr>
-        </tfoot>
-      </table>
+<div data-chart data-filter="all" data-reveal="fade" class="card p-5 sm:p-8">
+  <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+    <div class="chart-filters flex-wrap gap-2" role="group" aria-label={p.title}>
+      {
+        filters.map((f, i) => (
+          <button type="button" class="filter-btn" data-filter-btn={f} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {p.filters[f]}
+          </button>
+        ))
+      }
     </div>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2 text-sm font-medium text-night-800" aria-hidden="true">
+      <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-gold-500"></span>{p.filters.completed}</li>
+      <li class="flex items-center gap-2"><span class="h-3 w-3 rounded-full bg-night-700"></span>{p.filters.ongoing}</li>
+    </ul>
   </div>
-  <p class="mt-5 flex items-start gap-3 text-sm text-muted">
-    <Icon name="shield" size={20} class="mt-0.5 shrink-0 text-gold-600" />
-    {note}
-  </p>
+
+  <ul class="mt-6 divide-y divide-cream-200">
+    {
+      site.portfolio.rows.map((row) => (
+        <li class="chart-row" data-all={row.projects} data-completed={row.completed} data-ongoing={row.ongoing}>
+          <div class="flex items-baseline justify-between gap-4">
+            <span class="font-semibold text-night-900">{sectors[row.id]}</span>
+            <span class="tabular font-display text-xl font-bold text-night-900" data-value>
+              {row.projects}
+            </span>
+          </div>
+          <div class="bar-track grow-line mt-2.5" style={`--done:${percent(row.completed)};--ongoing:${percent(row.ongoing)}`}>
+            <span class="bar-seg bar-done"></span>
+            <span class="bar-seg bar-ongoing"></span>
+          </div>
+          <p class="mt-2 text-sm text-muted">
+            {p.valueLabel}: <span class="tabular font-semibold text-night-800" dir="ltr">{omr(row.valueOMR)}</span>
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div
+    class="mt-2 rounded-xl bg-sage-300/40 px-4 py-4"
+    data-total
+    data-all={site.portfolio.totals.projects}
+    data-completed={site.portfolio.totals.completed}
+    data-ongoing={site.portfolio.totals.ongoing}
+  >
+    <div class="flex items-baseline justify-between gap-4">
+      <span class="font-bold text-night-950">{totalLabel}</span>
+      <span class="tabular font-display text-2xl font-bold text-night-950" data-value>{site.portfolio.totals.projects}</span>
+    </div>
+    <p class="mt-1 text-sm text-night-800">
+      {p.stats.value}: <span class="tabular font-bold text-night-950" dir="ltr">{omr(site.portfolio.totals.valueOMR)}</span>
+    </p>
+  </div>
+  <p class="mt-4 text-sm text-muted">{p.note}</p>
 </div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-chart]').forEach((root) => {
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter-btn]'));
+    const rows = Array.from(root.querySelectorAll<HTMLElement>('.chart-row, [data-total]'));
+
+    const apply = (filter: string) => {
+      root.dataset.filter = filter;
+      buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filterBtn === filter)));
+      rows.forEach((row) => {
+        const value = row.querySelector<HTMLElement>('[data-value]');
+        if (value) value.textContent = row.dataset[filter] ?? '';
+      });
+    };
+
+    buttons.forEach((button) => button.addEventListener('click', () => apply(button.dataset.filterBtn!)));
+  });
+</script>

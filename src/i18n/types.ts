@@ -104,6 +104,9 @@ export interface Content {
     header: { title: string; text: string };
     portfolio: SectionIntro & {
       stats: { projects: string; completed: string; ongoing: string; value: string };
+      filters: { all: string; completed: string; ongoing: string };
+      valueLabel: string;
+      note: string;
     };
     explorer: SectionIntro & {
       tabsLabel: string;
