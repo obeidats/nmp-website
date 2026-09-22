@@ -529,67 +529,6 @@
     color: var(--color-night-950);
   }
 
-  /* Portfolio chart */
-  .chart-filters {
-    display: none;
-  }
-  .js .chart-filters {
-    display: flex;
-  }
-  .bar-track {
-    display: flex;
-    height: 0.85rem;
-    overflow: hidden;
-    border-radius: 9999px;
-    background: var(--color-cream-200);
-  }
-  .bar-seg {
-    height: 100%;
-    transition: width 0.8s var(--ease-out-expo);
-  }
-  .bar-done {
-    width: calc(var(--done) * 1%);
-    background: var(--color-gold-500);
-  }
-  .bar-ongoing {
-    width: calc(var(--ongoing) * 1%);
-    background: var(--color-night-700);
-  }
-  [data-filter="completed"] .bar-ongoing,
-  [data-filter="ongoing"] .bar-done {
-    width: 0;
-  }
-  .chart-row {
-    border-radius: 0.75rem;
-    padding: 0.9rem 1rem;
-    transition: background-color 0.3s;
-  }
-  .chart-row:hover {
-    background: var(--color-cream-100);
-  }
-  .filter-btn {
-    border-radius: 9999px;
-    border: 1px solid rgb(10 49 54 / 0.2);
-    background: #fff;
-    padding: 0.5rem 1.1rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--color-night-800);
-    cursor: pointer;
-    transition:
-      background-color 0.3s,
-      color 0.3s,
-      border-color 0.3s;
-  }
-  .filter-btn:hover {
-    border-color: var(--color-gold-500);
-  }
-  .filter-btn[aria-pressed="true"] {
-    background: var(--color-night-900);
-    border-color: var(--color-night-900);
-    color: #fff;
-  }
-
   /* Accordion (native <details>) */
   .stage {
     border-bottom: 1px solid rgb(255 255 255 / 0.12);

@@ -104,9 +104,6 @@ export interface Content {
     header: { title: string; text: string };
     portfolio: SectionIntro & {
       stats: { projects: string; completed: string; ongoing: string; value: string };
-      filters: { all: string; completed: string; ongoing: string };
-      valueLabel: string;
-      note: string;
     };
     explorer: SectionIntro & {
       tabsLabel: string;
@@ -147,11 +144,11 @@ export interface Content {
       facts: {
         fullName: string;
         shortName: string;
+        mailingAddress: string;
         registration: string;
         established: string;
         location: string;
         poBox: string;
-        locationValue: string;
       };
     };
     vision: SectionIntro & { badges: string[] };

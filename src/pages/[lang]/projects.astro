@@ -10,7 +10,7 @@ import CtaBand from '../../components/CtaBand.astro';
 import Icon from '../../components/Icon.astro';
 import { getContent, pagePath, staticLangPaths, type Lang } from '../../i18n';
 import { site } from '../../data/site';
-import { covers, photos } from '../../data/images';
+import { photos } from '../../data/images';
 import { rv } from '../../lib/reveal';
 
 export const getStaticPaths = staticLangPaths;
@@ -39,7 +39,7 @@ const stats = [
 ---
 
 <BaseLayout lang={lang} page="projects" title={p.seoTitle} description={p.header.text}>
-  <PageHero lang={lang} page="projects" title={p.header.title} text={p.header.text} image={covers.roads} />
+  <PageHero lang={lang} page="projects" title={p.header.title} text={p.header.text} image={photos.projectsRoad} imagePosition="50% 30%" />
 
   <!-- Portfolio in numbers -->
   <Section tone="light">

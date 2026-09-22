@@ -9,9 +9,11 @@ interface Props {
   text: string;
   /** Optional photograph that fades into the dark hero */
   image?: Img;
+  /** CSS object-position for the photo, e.g. "50% 30%" to keep the top of a tall shot in view */
+  imagePosition?: string;
 }
 
-const { lang, page, title, text, image } = Astro.props;
+const { lang, page, title, text, image, imagePosition } = Astro.props;
 const t = getContent(lang);
 ---
 
@@ -19,7 +21,7 @@ const t = getContent(lang);
   {
     image && (
       <div class="hero-photo" aria-hidden="true">
-        <img src={image.src} width={image.width} height={image.height} alt="" fetchpriority="high" />
+        <img src={image.src} width={image.width} height={image.height} alt="" fetchpriority="high" style={imagePosition ? `object-position:${imagePosition}` : undefined} />
       </div>
     )
   }

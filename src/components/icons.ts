@@ -57,6 +57,10 @@ export const icons = {
     '<path d="M12 4v16M6 20h12M5 7h14M5 7l-3 7a3 3 0 0 0 6 0L5 7ZM19 7l-3 7a3 3 0 0 0 6 0l-3-7Z"/>',
   alert: '<path d="M12 3 2 20h20L12 3ZM12 10v4M12 17v.5"/>',
   layers: '<path d="m12 3 9 5-9 5-9-5 9-5ZM3 13l9 5 9-5"/>',
+  checkCircle: '<circle cx="12" cy="12" r="9"/><path d="m8 12.3 2.8 2.7L16.2 9.5"/>',
+  sigma: '<path d="M17 5H7l6 7-6 7h10"/>',
+  waterTower:
+    '<path d="M6 4h12v6a6 3 0 0 1-12 0V4ZM12 13v8M8 21l2-8M16 21l-2-8M7 21h10"/>',
   clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   cart: '<path d="M3 4h2l2 12h11l2-8H6"/><circle cx="9" cy="20" r="1"/><circle cx="17" cy="20" r="1"/>',
   flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',

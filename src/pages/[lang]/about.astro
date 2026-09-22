@@ -17,13 +17,14 @@ const t = getContent(lang);
 const a = t.about;
 const p = a.portfolio;
 
-const facts = [
+const facts: { label: string; value: string; href?: string }[] = [
   { label: a.overview.facts.fullName, value: t.meta.siteName },
   { label: a.overview.facts.shortName, value: t.meta.shortName },
+  { label: a.overview.facts.mailingAddress, value: site.email, href: `mailto:${site.email}` },
   { label: a.overview.facts.registration, value: site.commercialRegistration },
   { label: a.overview.facts.established, value: String(site.established) },
-  { label: a.overview.facts.location, value: a.overview.facts.locationValue },
   { label: a.overview.facts.poBox, value: `${site.poBox} / ${site.postalCode}` },
+  { label: a.overview.facts.location, value: `${t.ui.poBoxLine}\n${t.ui.address}` },
 ];
 
 const maxValue = Math.max(...site.portfolio.rows.map((row) => row.valueOMR));
@@ -81,7 +82,15 @@ const anchors = [
           facts.map((f) => (
             <div class="grid gap-1 px-6 py-4 sm:grid-cols-[11rem_1fr] sm:gap-4">
               <dt class="text-sm font-semibold text-gold-700">{f.label}</dt>
-              <dd class="font-medium text-night-900">{f.value}</dd>
+              <dd class="font-medium whitespace-pre-line text-night-900">
+                {f.href ? (
+                  <a href={f.href} dir="ltr" class="break-all transition-colors hover:text-gold-700">
+                    {f.value}
+                  </a>
+                ) : (
+                  f.value
+                )}
+              </dd>
             </div>
           ))
         }

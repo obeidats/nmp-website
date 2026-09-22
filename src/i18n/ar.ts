@@ -37,8 +37,8 @@ export const ar: Content = {
     whatsappLabel: 'واتساب',
     chatOnWhatsapp: 'تواصل عبر واتساب',
     whatsappFloating: 'تواصل معنا عبر واتساب',
-    address: 'الخوض، مسقط – السيب، سلطنة عُمان',
-    poBoxLine: 'ص.ب: 767، الرمز البريدي: 123',
+    address: 'الخوض، السيب\nمسقط، سلطنة عُمان',
+    poBoxLine: 'ص.ب: 767، الرمز البريدي: 132',
     footerBlurb:
       'شركة عُمانية متخصصة في المشاريع، تدفع بالفرص إلى الأمام عبر دعمٍ منسّق للمشاريع والأعمال التجارية والعمليات التشغيلية.',
   },
@@ -336,9 +336,6 @@ export const ar: Content = {
         ongoing: 'قيد التنفيذ',
         value: 'قيمة المحفظة بالريال العُماني',
       },
-      filters: { all: 'جميع المشاريع', completed: 'المكتملة', ongoing: 'قيد التنفيذ' },
-      valueLabel: 'قيمة القطاع (ريال عُماني)',
-      note: 'تعرض الأشرطة عدد المشاريع، أما القيمة المعروضة فهي إجمالي قيمة القطاع كاملًا.',
     },
     explorer: {
       kicker: 'التخصصات',
@@ -560,11 +557,11 @@ export const ar: Content = {
       facts: {
         fullName: 'الاسم الكامل',
         shortName: 'الاسم المختصر',
+        mailingAddress: 'العنوان البريدي',
         registration: 'رقم السجل التجاري',
         established: 'سنة التأسيس',
         location: 'الموقع',
         poBox: 'ص.ب / الرمز البريدي',
-        locationValue: 'الخوض، مسقط – السيب، سلطنة عُمان',
       },
     },
     vision: {

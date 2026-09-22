@@ -37,8 +37,8 @@ export const en: Content = {
     whatsappLabel: 'WhatsApp',
     chatOnWhatsapp: 'Chat on WhatsApp',
     whatsappFloating: 'Chat with us on WhatsApp',
-    address: 'Al Khoud, Muscat – Seeb, Sultanate of Oman',
-    poBoxLine: 'PO Box 767, PC 123',
+    address: 'Al Khoudh, Seeb\nMuscat, Sultanate of Oman',
+    poBoxLine: 'PO Box 767, PC 132',
     footerBlurb:
       'An Oman-based project company moving opportunities forward through coordinated project, commercial and operational support.',
   },
@@ -337,9 +337,6 @@ export const en: Content = {
         ongoing: 'Ongoing',
         value: 'Portfolio value (OMR)',
       },
-      filters: { all: 'All projects', completed: 'Completed', ongoing: 'Ongoing' },
-      valueLabel: 'Sector value (OMR)',
-      note: 'Bars show the number of projects; the value shown is the total for the whole sector.',
     },
     explorer: {
       kicker: 'Disciplines',
@@ -561,11 +558,11 @@ export const en: Content = {
       facts: {
         fullName: 'Full name',
         shortName: 'Short name',
+        mailingAddress: 'Mailing address',
         registration: 'Commercial registration (CR)',
         established: 'Established',
         location: 'Location',
         poBox: 'PO Box / Postal code',
-        locationValue: 'Al Khoud, Muscat – Seeb, Sultanate of Oman',
       },
     },
     vision: {

@@ -47,7 +47,7 @@ export const site = {
   commercialRegistration: '1214998',
   established: 2015,
   poBox: '767',
-  postalCode: '123',
+  postalCode: '132',
   portfolio: {
     rows: portfolioRows,
     totals: {

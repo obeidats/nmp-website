@@ -28,6 +28,7 @@ export const photos = {
   operations: img('operations', 790, 548),
   cityBanner: img('city-banner', 1455, 339),
   roadSunset: img('road-sunset', 341, 608),
+  projectsRoad: img('projects-road', 451, 626),
 } as const;
 
 /** Large feature photo for each discipline */

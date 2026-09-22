@@ -21,7 +21,7 @@ const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(c
 const details: { icon: IconName; label: string; value: string; href?: string; ltr?: boolean }[] = [
   { icon: 'phone', label: t.ui.phoneLabel, value: site.phoneDisplay, href: `tel:${site.phone}`, ltr: true },
   { icon: 'mail', label: t.ui.emailLabel, value: site.email, href: `mailto:${site.email}`, ltr: true },
-  { icon: 'pin', label: t.ui.locationLabel, value: `${t.ui.address}\n${t.ui.poBoxLine}` },
+  { icon: 'pin', label: t.ui.locationLabel, value: `${t.ui.poBoxLine}\n${t.ui.address}` },
 ];
 ---
 
