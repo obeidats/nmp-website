@@ -147,7 +147,7 @@ export interface Content {
       facts: {
         fullName: string;
         shortName: string;
-        mailingAddress: string;
+        emailAddress: string;
         registration: string;
         established: string;
         location: string;

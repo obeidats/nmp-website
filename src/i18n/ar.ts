@@ -560,11 +560,11 @@ export const ar: Content = {
       facts: {
         fullName: 'الاسم الكامل',
         shortName: 'الاسم المختصر',
-        mailingAddress: 'العنوان البريدي',
+        emailAddress: 'البريد الإلكتروني',
         registration: 'رقم السجل التجاري',
         established: 'سنة التأسيس',
         location: 'الموقع',
-        poBox: 'ص.ب / الرمز البريدي',
+        poBox: 'العنوان البريدي',
       },
     },
     vision: {

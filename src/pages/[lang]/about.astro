@@ -20,11 +20,11 @@ const p = a.portfolio;
 const facts: { label: string; value: string; href?: string }[] = [
   { label: a.overview.facts.fullName, value: t.meta.siteName },
   { label: a.overview.facts.shortName, value: t.meta.shortName },
-  { label: a.overview.facts.mailingAddress, value: site.email, href: `mailto:${site.email}` },
+  { label: a.overview.facts.emailAddress, value: site.email, href: `mailto:${site.email}` },
   { label: a.overview.facts.registration, value: site.commercialRegistration },
   { label: a.overview.facts.established, value: String(site.established) },
   { label: a.overview.facts.poBox, value: `${site.poBox} / ${site.postalCode}` },
-  { label: a.overview.facts.location, value: `${t.ui.poBoxLine}\n${t.ui.address}` },
+  { label: a.overview.facts.location, value: t.ui.address },
 ];
 
 const maxValue = Math.max(...site.portfolio.rows.map((row) => row.valueOMR));

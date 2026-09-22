@@ -561,11 +561,11 @@ export const en: Content = {
       facts: {
         fullName: 'Full name',
         shortName: 'Short name',
-        mailingAddress: 'Mailing address',
+        emailAddress: 'Email address',
         registration: 'Commercial registration (CR)',
         established: 'Established',
         location: 'Location',
-        poBox: 'PO Box / Postal code',
+        poBox: 'Mailing address',
       },
     },
     vision: {
