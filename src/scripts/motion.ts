@@ -34,10 +34,14 @@ document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
   const from = Number(el.dataset.from ?? 0);
   const decimals = Number(el.dataset.decimals ?? 0);
   const suffix = el.dataset.suffix ?? '';
+  const grouped = 'grouped' in el.dataset; // thousands separators, e.g. 11,271,224
   if (reduced || Number.isNaN(to)) return; // markup already shows the final value
 
   const render = (value: number) => {
-    el.textContent = value.toFixed(decimals) + suffix;
+    el.textContent =
+      (grouped
+        ? value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+        : value.toFixed(decimals)) + suffix;
   };
   render(from);
 

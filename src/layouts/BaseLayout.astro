@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Icon from '../components/Icon.astro';
 import {
   defaultLang,
   getContent,
@@ -32,7 +31,6 @@ const metaDescription = description ?? t.meta.description;
 const canonical = new URL(pagePath(lang, page), site.url).href;
 const ogImage = new URL('/icon-512.png', site.url).href;
 
-const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(t.contact.whatsapp.prefill)}`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -111,16 +109,6 @@ const jsonLd = {
       <slot />
     </main>
     <Footer lang={lang} />
-
-    <a
-      href={whatsappHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={t.ui.whatsappFloating}
-      class="fixed bottom-5 end-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25d366] text-white shadow-lg transition-transform hover:scale-105"
-    >
-      <Icon name="whatsapp" size={28} strokeWidth={1.7} />
-    </a>
 
     <script>
       import '../scripts/motion';

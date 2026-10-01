@@ -9,7 +9,7 @@ import Lightbox from '../../components/Lightbox.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import Icon from '../../components/Icon.astro';
 import { getContent, pagePath, staticLangPaths, type Lang } from '../../i18n';
-import { site } from '../../data/site';
+import { site, formatNumber } from '../../data/site';
 import { photos } from '../../data/images';
 import { rv } from '../../lib/reveal';
 
@@ -20,21 +20,14 @@ const t = getContent(lang);
 const p = t.projects;
 
 const totals = site.portfolio.totals;
-const millions = totals.valueOMR / 1_000_000;
-const suffix = t.home.stats.millionSuffix;
 
 /** `from` / `to` drive the count-up animation; `text` is what shows without JavaScript. */
 const stats = [
   { text: String(totals.projects), to: totals.projects, decimals: 0, suffix: '', label: p.portfolio.stats.projects },
   { text: String(totals.completed), to: totals.completed, decimals: 0, suffix: '', label: p.portfolio.stats.completed },
   { text: String(totals.ongoing), to: totals.ongoing, decimals: 0, suffix: '', label: p.portfolio.stats.ongoing },
-  {
-    text: `${millions.toFixed(2)}${suffix}`,
-    to: Number(millions.toFixed(2)),
-    decimals: 2,
-    suffix,
-    label: p.portfolio.stats.value,
-  },
+  /* Rial amount written in full, as on the company's documents: 11,271,224/= */
+  { text: `${formatNumber(totals.valueOMR)}/=`, to: totals.valueOMR, decimals: 0, suffix: '/=', label: p.portfolio.stats.value, wide: true },
 ];
 ---
 
@@ -48,11 +41,12 @@ const stats = [
     <dl class="mt-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
       {
         stats.map((s, i) => (
-          <div {...rv(i, 'pop')} class="card flex flex-col-reverse gap-1 px-5 py-5 md:px-7 md:py-6">
+          <div {...rv(i, 'pop')} class:list={['card flex flex-col-reverse gap-1 px-5 py-5 md:px-7 md:py-6', s.wide && 'col-span-2 lg:col-span-1']}>
             <dt class="text-sm font-medium text-muted">{s.label}</dt>
             <dd
-              class="h-display tabular text-3xl text-night-900 md:text-4xl"
+              class:list={['h-display tabular whitespace-nowrap text-night-900', s.wide ? 'text-3xl md:text-4xl lg:text-[1.75rem] xl:text-3xl' : 'text-3xl md:text-4xl']}
               data-count
+              data-grouped
               data-to={s.to}
               data-from="0"
               data-decimals={s.decimals}
