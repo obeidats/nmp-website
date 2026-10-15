@@ -51,9 +51,9 @@ export const site = {
   /** Working hours, 24-hour clock – used in structured data; display text lives in ui.workingHours */
   hours: { opens: '08:00', closes: '16:00' },
   /** Office location (Al Khoudh, Seeb) */
-  geo: { lat: 23.6211679, lng: 58.2118542 },
+  geo: { lat: 23.6207544, lng: 58.2120008 },
   /** Shared Google Maps link supplied by the owner */
-  mapUrl: 'https://maps.app.goo.gl/gbX4WzEFY1E5LXFo7',
+  mapUrl: 'https://maps.app.goo.gl/J4gTxcC4TXq8GLSu8',
   portfolio: {
     rows: portfolioRows,
     totals: {
