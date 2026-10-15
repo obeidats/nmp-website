@@ -17,14 +17,15 @@ const t = getContent(lang);
 const a = t.about;
 const p = a.portfolio;
 
-const facts: { label: string; value: string; href?: string }[] = [
+const facts: { label: string; value: string; href?: string; external?: boolean }[] = [
   { label: a.overview.facts.fullName, value: t.meta.siteName },
   { label: a.overview.facts.shortName, value: t.meta.shortName },
   { label: a.overview.facts.emailAddress, value: site.email, href: `mailto:${site.email}` },
   { label: a.overview.facts.registration, value: site.commercialRegistration },
   { label: a.overview.facts.established, value: String(site.established) },
   { label: a.overview.facts.poBox, value: `${site.poBox} / ${site.postalCode}` },
-  { label: a.overview.facts.location, value: t.ui.address },
+  { label: a.overview.facts.location, value: t.ui.address, href: site.mapUrl, external: true },
+  { label: a.overview.facts.workingHours, value: t.ui.workingHours },
 ];
 
 const maxValue = Math.max(...site.portfolio.rows.map((row) => row.valueOMR));
@@ -84,7 +85,13 @@ const anchors = [
               <dt class="text-sm font-semibold text-gold-700">{f.label}</dt>
               <dd class="font-medium whitespace-pre-line text-night-900">
                 {f.href ? (
-                  <a href={f.href} dir="ltr" class="break-all transition-colors hover:text-gold-700">
+                  <a
+                    href={f.href}
+                    dir={f.external ? undefined : 'ltr'}
+                    target={f.external ? '_blank' : undefined}
+                    rel={f.external ? 'noopener noreferrer' : undefined}
+                    class={`transition-colors hover:text-gold-700 ${f.external ? '' : 'break-all'}`}
+                  >
                     {f.value}
                   </a>
                 ) : (

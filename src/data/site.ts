@@ -48,6 +48,12 @@ export const site = {
   established: 2015,
   poBox: '767',
   postalCode: '132',
+  /** Working hours, 24-hour clock – used in structured data; display text lives in ui.workingHours */
+  hours: { opens: '08:00', closes: '16:00' },
+  /** Office location (Al Khoudh, Seeb) */
+  geo: { lat: 23.6211679, lng: 58.2118542 },
+  /** Shared Google Maps link supplied by the owner */
+  mapUrl: 'https://maps.app.goo.gl/gbX4WzEFY1E5LXFo7',
   portfolio: {
     rows: portfolioRows,
     totals: {

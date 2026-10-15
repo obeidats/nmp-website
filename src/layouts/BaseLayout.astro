@@ -51,6 +51,11 @@ const jsonLd = {
     postOfficeBoxNumber: site.poBox,
     postalCode: site.postalCode,
   },
+  location: {
+    '@type': 'Place',
+    geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng },
+    hasMap: site.mapUrl,
+  },
   areaServed: ['OM', 'Gulf Cooperation Council'],
 };
 ---

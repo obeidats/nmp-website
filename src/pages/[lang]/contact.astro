@@ -18,11 +18,15 @@ const c = t.contact;
 
 const whatsappHref = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(c.whatsapp.prefill)}`;
 
-const details: { icon: IconName; label: string; value: string; href?: string; ltr?: boolean }[] = [
+const details: { icon: IconName; label: string; value: string; href?: string; ltr?: boolean; external?: boolean }[] = [
   { icon: 'phone', label: t.ui.phoneLabel, value: site.phoneDisplay, href: `tel:${site.phone}`, ltr: true },
   { icon: 'mail', label: t.ui.emailLabel, value: site.email, href: `mailto:${site.email}`, ltr: true },
-  { icon: 'pin', label: t.ui.locationLabel, value: `${t.ui.poBoxLine}\n${t.ui.address}` },
+  { icon: 'pin', label: t.ui.locationLabel, value: `${t.ui.poBoxLine}\n${t.ui.address}`, href: site.mapUrl, external: true },
+  { icon: 'clock', label: t.ui.hoursLabel, value: t.ui.workingHours },
 ];
+
+/** Keyless Google Maps embed centred on the office pin */
+const mapEmbed = `https://maps.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=16&hl=${lang}&output=embed`;
 ---
 
 <BaseLayout lang={lang} page="contact" title={c.seoTitle} description={c.header.text}>
@@ -46,7 +50,9 @@ const details: { icon: IconName; label: string; value: string; href?: string; lt
                       <a
                         href={d.href}
                         dir={d.ltr ? 'ltr' : undefined}
-                        class="mt-0.5 block break-words font-medium text-night-900 hover:text-gold-700"
+                        target={d.external ? '_blank' : undefined}
+                        rel={d.external ? 'noopener noreferrer' : undefined}
+                        class="mt-0.5 block break-words font-medium whitespace-pre-line text-night-900 hover:text-gold-700"
                         style={d.ltr ? 'text-align:start' : undefined}
                       >
                         {d.value}
@@ -76,6 +82,26 @@ const details: { icon: IconName; label: string; value: string; href?: string; lt
 
       <div {...rv(0, 'end')}>
         <ContactForm lang={lang} />
+      </div>
+    </div>
+
+    <div {...rv(0)} class="card mt-8 overflow-hidden">
+      <iframe
+        src={mapEmbed}
+        title={t.ui.mapTitle}
+        class="block h-80 w-full border-0 sm:h-96"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <div class="flex flex-wrap items-center justify-between gap-4 p-5 sm:p-6">
+        <p class="flex items-center gap-3 font-medium text-night-900">
+          <Icon name="pin" size={20} class="shrink-0 text-gold-700" />
+          {t.ui.address.replace('\n', ' – ')}
+        </p>
+        <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          {t.ui.openInMaps}
+          <Icon name="arrow" size={18} class="icon-arrow rtl:-scale-x-100" />
+        </a>
       </div>
     </div>
   </Section>

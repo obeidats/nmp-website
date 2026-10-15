@@ -51,6 +51,10 @@ export interface Content {
     phoneLabel: string;
     emailLabel: string;
     locationLabel: string;
+    hoursLabel: string;
+    workingHours: string;
+    openInMaps: string;
+    mapTitle: string;
     whatsappLabel: string;
     chatOnWhatsapp: string;
     whatsappFloating: string;
@@ -151,6 +155,7 @@ export interface Content {
         registration: string;
         established: string;
         location: string;
+        workingHours: string;
         poBox: string;
       };
     };

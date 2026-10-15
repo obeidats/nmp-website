@@ -48,7 +48,11 @@ const year = new Date().getFullYear();
         </li>
         <li class="flex items-start gap-3">
           <Icon name="pin" size={20} class="mt-1 shrink-0 text-gold-400" />
-          <span class="whitespace-pre-line">{`${t.ui.poBoxLine}\n${t.ui.address}`}</span>
+          <a href={site.mapUrl} target="_blank" rel="noopener noreferrer" class="whitespace-pre-line transition-colors hover:text-gold-300">{`${t.ui.poBoxLine}\n${t.ui.address}`}</a>
+        </li>
+        <li class="flex items-start gap-3">
+          <Icon name="clock" size={20} class="mt-1 shrink-0 text-gold-400" />
+          <span>{t.ui.workingHours}</span>
         </li>
       </ul>
     </div>
